@@ -18,8 +18,17 @@ class App extends React.Component {
       },
       turn: 'white',
       lobbyTaken: false,
-      lastTurn: []
+      lastTurn: [],
+      windowHeight: window.innerHeight
     }
+    this.handleResize = this.handleResize.bind(this)
+  }
+
+  handleResize(size) {
+    console.log('size: ', size)
+    this.setState({
+      windowHeight: size.target.window.innerHeight
+    })
   }
 
   createBoard() {
@@ -105,11 +114,14 @@ class App extends React.Component {
     return board;
   }
 
+  componentDidMount() {
+    window.addEventListener('resize', this.handleResize);
+  }
 
   render () {
     return (
     <div>
-      <Board board={this.state.board} holdingPiece={this.state.holdingPiece} heldPiece={this.state.heldPiece} turn={this.state.turn} lobby={this.state.lobby}/>
+      <Board board={this.state.board} holdingPiece={this.state.holdingPiece} heldPiece={this.state.heldPiece} turn={this.state.turn} lobby={this.state.lobby} windowHeight={this.state.windowHeight}/>
     </div>)
 
   }

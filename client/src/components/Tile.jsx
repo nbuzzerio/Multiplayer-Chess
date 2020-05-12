@@ -9,7 +9,7 @@ const StyledTile = styled.div`
   position: relative;
 `
 const StyledPiece = styled.div`
-  font-size: 75px;
+  font-size:  ${props => props.windowHeight*.08}px;
   text-align: center;
   color: ${props => props.color};
 `
@@ -42,7 +42,7 @@ class Tile extends React.Component {
     return (
       <StyledTile color={this.props.tile.tileColor}>
       <div className='tile' onClick={this.onTileClick}>
-      <StyledPiece color={this.props.tile.pieceColor}>
+      <StyledPiece color={this.props.tile.pieceColor} windowHeight={this.props.windowHeight}>
           <div className='Piece'>
             {this.props.tile.piece}
           </div>
