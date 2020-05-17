@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 
 import Board from '../components/Board.jsx';
 import { setBoard } from '../actions/boardAction.js';
+import { setWindowHeight } from '../actions/windowAction.js';
 
-console.log(setBoard(), 'the function is there')
 
 class App extends React.Component {
   constructor(props) {
@@ -24,28 +24,28 @@ class App extends React.Component {
     //   lastTurn: [],
     //   windowHeight: window.innerHeight
     // }
-    // this.handleResize = this.handleResize.bind(this)
-    this.props.setBoard()
+   
   }
 
   
 
-  handleResize(size) {
-    console.log('size: ', size)
-    this.setState({
-      windowHeight: size.target.window.innerHeight
-    })
-  }
+  // handleResize(size) {
+  //   console.log('size: ', size)
+  //   this.setState({
+  //     windowHeight: size.target.window.innerHeight
+  //   })
+  // }
 
   componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
+    console.log('this: ', this);
+    window.addEventListener("resize", this.props.setWindowHeight(window.innerWidth));
   }
 
 
   render () {
     return (
     <div>
-      {console.log('board: ', this.props.board, 'props: ', this.props)}
+      {console.log('props: ', this.props)}
       <Board board={this.props.board} holdingPiece={this.props.holdingPiece} heldPiece={this.props.heldPiece} turn={this.props.turn} lobby={this.props.lobby} windowHeight={this.props.windowHeight}/>
     </div>)
 
@@ -54,7 +54,8 @@ class App extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    board: state.board
+    board: state.board,
+    windowHeight: state.windowHeight
   };
 }
 
@@ -63,6 +64,9 @@ const mapDispatchToProps = (dispatch) => {
       setBoard: () => { //more like this
         dispatch(setBoard())
       },
+      setWindowHeight: (size) => {
+        dispatch(setWindowHeight(size))
+      }
   };
 }
 

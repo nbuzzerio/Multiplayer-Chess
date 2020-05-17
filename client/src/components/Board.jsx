@@ -18,8 +18,7 @@ const StyledSquares = styled.div`
 
 function Board(props) {
   const rows = props.board.board;  //figure out why there are 2 board keys to get to the array
-  // debugger
-  console.log(Array.isArray(rows), typeof (rows))
+
   //going through matrix rows then through each row and grabbing tiles
   const rowsList = rows.map((row, colIndex) => { 
       return row.map((tile, rowIndex) => {
