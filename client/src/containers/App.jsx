@@ -7,38 +7,12 @@ import { setWindowHeight } from '../actions/windowAction.js';
 
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    // this.state = {
-    //   textField: '',
-    //   lobby: '',
-    //   board: this.createBoard(),
-    //   holdingPiece: false,
-    //   heldPiece: {
-    //     coord: '',
-    //     piece: '',
-    //     pieceColor: ''
-    //   },
-    //   turn: 'white',
-    //   lobbyTaken: false,
-    //   lastTurn: [],
-    //   windowHeight: window.innerHeight
-    // }
-   
-  }
-
-  
-
-  // handleResize(size) {
-  //   console.log('size: ', size)
-  //   this.setState({
-  //     windowHeight: size.target.window.innerHeight
-  //   })
-  // }
 
   componentDidMount() {
-    console.log('this: ', this);
-    window.addEventListener("resize", this.props.setWindowHeight(window.innerWidth));
+    console.log('the componentnentnt did mount')
+    window.addEventListener('resize', this.props.setWindowHeight);
+    window.addEventListener('resize', console.log('new height: ', window.innerHeight));
+
   }
 
 
@@ -72,3 +46,18 @@ const mapDispatchToProps = (dispatch) => {
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
 
+    // this.state = {
+    //   textField: '',
+    //   lobby: '',
+
+    //   holdingPiece: false,
+    //   heldPiece: {
+    //     coord: '',
+    //     piece: '',
+    //     pieceColor: ''
+    //   },
+    //   turn: 'white',
+    //   lobbyTaken: false,
+    //   lastTurn: [],
+
+    // }
