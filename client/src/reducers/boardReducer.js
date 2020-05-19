@@ -85,7 +85,7 @@ const board = createBoard();
 const boardReducer = (state = {
     board: board,
     textField: '',
-    lobby: '',
+    lobby: 'TEST GAME LOBBY',
     holdingPiece: false,
     heldPiece: {
     coord: '',
@@ -124,4 +124,4 @@ const boardReducer = (state = {
     return state;
 };
 
-export default boardReducer
+export default boardReducer;

@@ -17,14 +17,18 @@ const StyledSquares = styled.div`
 `;
 
 function Board(props) {
-  const rows = props.board.board;  //figure out why there are 2 board keys to get to the array
+  const rows = props.board;  //figure out why there are 2 board keys to get to the array
 
   //going through matrix rows then through each row and grabbing tiles
   const rowsList = rows.map((row, colIndex) => { 
       return row.map((tile, rowIndex) => {
         // debugger;
         // {console.log(`${colIndex}${rowIndex}`, ': ', tile)}
-        return <Tile tile={tile} holdingPiece={props.holdingPiece} heldPiece={props.heldPiece} turn={props.turn} lobby={props.lobby} key={rowIndex + '' + colIndex} windowHeight={props.windowHeight}/>
+        return (
+          <div className='rows' onClick={() => {props.onTileClick(tile)}}>
+            <Tile tile={tile} holdingPiece={props.holdingPiece} heldPiece={props.heldPiece} turn={props.turn} lobby={props.lobby} key={rowIndex + '' + colIndex} windowHeight={props.windowHeight} onTileClick={props.onTileClick}/>
+          </div>
+        )
       })
   })
 
@@ -32,7 +36,6 @@ function Board(props) {
     <StyledBoard windowHeight={props.windowHeight}>
       <div className='board'>
         <StyledSquares windowHeight={props.windowHeight}>
-        {console.log(rowsList)}
           {rowsList}
         </StyledSquares>
       </div>

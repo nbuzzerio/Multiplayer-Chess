@@ -7,7 +7,7 @@ import windowReducer from './reducers/windowReducer.js';
 export default createStore(
     combineReducers({
         //put reducers here
-        board: boardReducer,
+        boardProps: boardReducer,
         windowHeight: windowReducer     
     })
 )

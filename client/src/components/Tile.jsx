@@ -4,6 +4,8 @@ import styled from 'styled-components';
 const StyledTile = styled.div`
   border: 1px solid black;
   boxSizing: border-box;
+  min-width: ${props => props.windowHeight*.11}px;
+  min-height: ${props => props.windowHeight*.11}px;
   background: ${props => props.color};
   textAlign: center;
   position: relative;
@@ -16,36 +18,18 @@ const StyledPiece = styled.div`
 
 
 function Tile (props) {
-  // constructor(props) {
-  //   super(props);
-  //   this.onTileClick = this.onTileClick.bind(this);
-  // }
-
-  // onTileClick() {
-  //   if (this.props.lobby !== '') {
-  //     var coord = this.props.tile.coord;
-  //     var piece = this.props.tile.piece;
-  //     var pieceColor = this.props.tile.pieceColor;
-  //     var tileColor = this.props.tile.tileColor;
-
-  //     if (!this.props.holdingPiece && this.props.tile.piece && this.props.tile.pieceColor === this.props.turn) {
-  //       this.props.onLiftPiece(coord, piece, pieceColor, tileColor);
-  //     }
-  //     if (this.props.holdingPiece && (this.props.tile.pieceColor !== this.props.heldPiece.pieceColor)) {
-  //       this.props.onPiecePlace(coord);
-  //     }
-  //   }
-  // }
+  
     return (
-      <StyledTile color={this.props.tile.tileColor}>
-      <div className='tile' onClick={this.onTileClick}>
-      <StyledPiece color={this.props.tile.pieceColor} windowHeight={this.props.windowHeight}>
-          <div className='Piece'>
-            {this.props.tile.piece}
-          </div>
-        </StyledPiece>
-      </div>
+      <StyledTile color={props.tile.tileColor} windowHeight={props.windowHeight}>
+        <div className='tile'>
+          <StyledPiece color={props.tile.pieceColor} windowHeight={props.windowHeight}>
+            <div className='Piece'>
+              {props.tile.piece}
+            </div>
+          </StyledPiece>
+        </div>
       </StyledTile>
+      
     )
 }
 

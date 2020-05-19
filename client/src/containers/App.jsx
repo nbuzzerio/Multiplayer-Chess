@@ -5,12 +5,13 @@ import Board from '../components/Board.jsx';
 import { setBoard } from '../actions/boardAction.js';
 import { setWindowHeight } from '../actions/windowAction.js';
 import { setClickedTile } from '../actions/clickTileAction.js';
+import { setLiftedPiece } from '../actions/liftPieceAction.js';
+import { setPlacedPiece } from '../actions/piecePlaceAction.js';
 
 
 class App extends React.Component {
 
   componentDidMount() {
-    console.log('the componentnentnt did mount')
     window.addEventListener('resize', this.props.setWindowHeight);
   }
 
@@ -18,15 +19,14 @@ class App extends React.Component {
   render () {
     return (
     <div>
-      {console.log('props: ', this.props)}
-      <Board board={this.props.board} holdingPiece={this.props.holdingPiece} heldPiece={this.props.heldPiece} turn={this.props.turn} lobby={this.props.lobby} windowHeight={this.props.windowHeight}/>
+      <Board board={this.props.boardProps.board} holdingPiece={this.props.boardProps.holdingPiece} heldPiece={this.props.boardProps.heldPiece} turn={this.props.boardProps.turn} lobby={this.props.boardProps.lobby} windowHeight={this.props.windowHeight} onTileClick={this.props.onTileClick}/>
     </div>)
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    board: state.board,
+    boardProps: state.boardProps,
     windowHeight: state.windowHeight
   };
 }
@@ -39,26 +39,16 @@ const mapDispatchToProps = (dispatch) => {
       setWindowHeight: (size) => {
         dispatch(setWindowHeight(size))
       },
-      onTileClick: () => {
-        dispatch(setClickedTile(size))
-      }
+      onTileClick: (tileProps) => {
+        dispatch(setClickedTile(tileProps))
+      },
+      onLiftPiece: (coord, piece, pieceColor, tileColor) => {
+        dispatch(setLiftedPiece(coord, piece, pieceColor, tileColor))
+      },
+      onPiecePlace: (coord) => {
+        dispatch(setPlacedPiece(coord))
+      },
   };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(App)
-
-    // this.state = {
-    //   textField: '',
-    //   lobby: '',
-
-    //   holdingPiece: false,
-    //   heldPiece: {
-    //     coord: '',
-    //     piece: '',
-    //     pieceColor: ''
-    //   },
-    //   turn: 'white',
-    //   lobbyTaken: false,
-    //   lastTurn: [],
-
-    // }

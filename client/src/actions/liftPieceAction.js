@@ -1,9 +1,8 @@
-export function setLiftedPiece(coord, piece, pieceColor, tileColor) {
+export default function setLiftedPiece(coord, piece, pieceColor, tileColor, board) {
 
-    function onLiftPiece(coord, piece, pieceColor, tileColor) {
+    function onLiftPiece(coord, piece, pieceColor, tileColor, board) {
       var row = Number(coord[0]);
       var col = Number(coord[1]);
-      var board = this.state.board;
       board[row][col].tileColor = 'green';
       
       return {
@@ -20,6 +19,5 @@ export function setLiftedPiece(coord, piece, pieceColor, tileColor) {
       }
     }
 
-    return onLiftPiece(coord, piece, pieceColor, tileColor);
+    return onLiftPiece(coord, piece, pieceColor, tileColor, board);
 }
-
