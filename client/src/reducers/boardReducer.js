@@ -97,10 +97,27 @@ const boardReducer = (state = {
     lastTurn: []
 }, action) => {
     switch (action.type) {
-        case "SET_BOARD":
+        case 'SET_BOARD':
             state = {
                 ...state,
                 board: action.payload
+            };
+            break;
+        case 'SET_LIFTED_PIECE':
+            state = {
+                ...state,
+                board: action.payload.board,
+                holdingPiece: action.payload.holdingPiece, 
+                heldPiece: action.payload.heldPiece
+            };
+            break;
+        case 'SET_PLACED_PIECE':
+            state = {
+                ...state,
+                board: action.payload.board,
+                holdingPiece: action.payload.holdingPiece, 
+                heldPiece: action.payload.heldPiece,
+                turn: action.payload.turn
             };
             break;
     }

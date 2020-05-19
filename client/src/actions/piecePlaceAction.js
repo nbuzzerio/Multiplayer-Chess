@@ -14,20 +14,25 @@ export function setPlacedPiece(coord) {
       board[lastRow][lastCol].pieceColor = ''
 
       if (this.state.turn === 'white') {
-        this.setState({lastTurn: JSON.stringify({board: this.state.board, turn: this.state.turn})})
-        this.setState({board: board,
-          holdingPiece: false, 
-          heldPiece: {
-            coord: '',
-            piece: '',
-            pieceColor: '',
-            tileColor: '',
-          },
-          turn: 'black'
-        }, this.boardSaveUpdate);
+        // this.setState({lastTurn: JSON.stringify({board: this.state.board, turn: this.state.turn})})
+        return {
+          type: 'SET_PLACED_PIECE',
+          payload: {board: board,
+            holdingPiece: false, 
+            heldPiece: {
+              coord: '',
+              piece: '',
+              pieceColor: '',
+              tileColor: '',
+            },
+            turn: 'black'
+          }
+        };
       } else {
-        this.setState({lastTurn: JSON.stringify({board: this.state.board, turn: this.state.turn})})
-        this.setState({board: board,
+        // this.setState({lastTurn: JSON.stringify({board: this.state.board, turn: this.state.turn})})
+        return {
+          type: 'SET_PLACED_PIECE',
+          payload: {board: board,
           holdingPiece: false, 
           heldPiece: {
             coord: '',
@@ -36,7 +41,8 @@ export function setPlacedPiece(coord) {
             tileColor: ''
           },
           turn: 'white'
-        }, this.boardSaveUpdate);
+          }
+        };
       }
   }
 
