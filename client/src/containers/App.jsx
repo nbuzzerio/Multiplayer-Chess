@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Board from '../components/Board.jsx';
 import { setBoard } from '../actions/boardAction.js';
 import { setWindowHeight } from '../actions/windowAction.js';
+import { setClickedTile } from '../actions/clickTileAction.js';
 
 
 class App extends React.Component {
@@ -11,8 +12,6 @@ class App extends React.Component {
   componentDidMount() {
     console.log('the componentnentnt did mount')
     window.addEventListener('resize', this.props.setWindowHeight);
-    window.addEventListener('resize', console.log('new height: ', window.innerHeight));
-
   }
 
 
@@ -22,7 +21,6 @@ class App extends React.Component {
       {console.log('props: ', this.props)}
       <Board board={this.props.board} holdingPiece={this.props.holdingPiece} heldPiece={this.props.heldPiece} turn={this.props.turn} lobby={this.props.lobby} windowHeight={this.props.windowHeight}/>
     </div>)
-
   }
 }
 
@@ -40,6 +38,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setWindowHeight: (size) => {
         dispatch(setWindowHeight(size))
+      },
+      onTileClick: () => {
+        dispatch(setClickedTile(size))
       }
   };
 }

@@ -15,30 +15,27 @@ const StyledPiece = styled.div`
 `
 
 
-class Tile extends React.Component {
+function Tile (props) {
+  // constructor(props) {
+  //   super(props);
+  //   this.onTileClick = this.onTileClick.bind(this);
+  // }
 
-  constructor(props) {
-    super(props);
-    this.onTileClick = this.onTileClick.bind(this);
-  }
+  // onTileClick() {
+  //   if (this.props.lobby !== '') {
+  //     var coord = this.props.tile.coord;
+  //     var piece = this.props.tile.piece;
+  //     var pieceColor = this.props.tile.pieceColor;
+  //     var tileColor = this.props.tile.tileColor;
 
-  onTileClick() {
-    if (this.props.lobby !== '') {
-      var coord = this.props.tile.coord;
-      var piece = this.props.tile.piece;
-      var pieceColor = this.props.tile.pieceColor;
-      var tileColor = this.props.tile.tileColor;
-
-      if (!this.props.holdingPiece && this.props.tile.piece && this.props.tile.pieceColor === this.props.turn) {
-        this.props.onLiftPiece(coord, piece, pieceColor, tileColor);
-      }
-      if (this.props.holdingPiece && (this.props.tile.pieceColor !== this.props.heldPiece.pieceColor)) {
-        this.props.onPiecePlace(coord);
-      }
-    }
-  }
-
-  render () {
+  //     if (!this.props.holdingPiece && this.props.tile.piece && this.props.tile.pieceColor === this.props.turn) {
+  //       this.props.onLiftPiece(coord, piece, pieceColor, tileColor);
+  //     }
+  //     if (this.props.holdingPiece && (this.props.tile.pieceColor !== this.props.heldPiece.pieceColor)) {
+  //       this.props.onPiecePlace(coord);
+  //     }
+  //   }
+  // }
     return (
       <StyledTile color={this.props.tile.tileColor}>
       <div className='tile' onClick={this.onTileClick}>
@@ -50,7 +47,6 @@ class Tile extends React.Component {
       </div>
       </StyledTile>
     )
-  }
 }
 
 export default Tile;

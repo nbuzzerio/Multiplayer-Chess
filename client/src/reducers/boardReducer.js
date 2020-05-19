@@ -83,7 +83,18 @@ function createBoard() {
 const board = createBoard();
 
 const boardReducer = (state = {
-    board: board
+    board: board,
+    textField: '',
+    lobby: '',
+    holdingPiece: false,
+    heldPiece: {
+    coord: '',
+    piece: '',
+    pieceColor: ''
+    },
+    turn: 'white',
+    lobbyTaken: false,
+    lastTurn: []
 }, action) => {
     switch (action.type) {
         case "SET_BOARD":
