@@ -83,9 +83,9 @@ function createBoard() {
 const board = createBoard();
 
 const boardReducer = (state = {
-    board: board,
+    board: [[]],
     textField: '',
-    lobby: 'TEST GAME LOBBY',
+    lobby: '',
     holdingPiece: false,
     heldPiece: {
     coord: '',
@@ -94,13 +94,17 @@ const boardReducer = (state = {
     },
     turn: 'white',
     lobbyTaken: false,
-    lastTurn: []
+    lobbyExists: true,
+    lastTurn: [] //not yet implemented
 }, action) => {
     switch (action.type) {
         case 'SET_BOARD':
             state = {
                 ...state,
-                board: action.payload
+                board: action.payload.board,
+                lobby: action.payload.lobby,
+                lobbyTaken: false,
+                lobbyExists: true
             };
             break;
         case 'SET_LIFTED_PIECE':
@@ -118,6 +122,24 @@ const boardReducer = (state = {
                 holdingPiece: action.payload.holdingPiece, 
                 heldPiece: action.payload.heldPiece,
                 turn: action.payload.turn
+            };
+            break;
+        case 'SET_LOBBY_TAKEN':
+            state = {
+                ...state,
+                lobbyTaken: action.payload
+            };
+            break;
+        case 'SET_LOBBY_EXISTS':
+            state = {
+                ...state,
+                lobbyExists: action.payload
+            };
+            break;
+        case 'SET_TEXTFIELD':
+            state = {
+                ...state,
+                textField: action.payload
             };
             break;
     }

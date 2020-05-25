@@ -1,4 +1,4 @@
-export function setBoard() {
+export function setBoard(lobby) {
 
     function createBoard() {
         class Tile {
@@ -85,6 +85,9 @@ export function setBoard() {
     const board = createBoard();
     return {
         type: 'SET_BOARD',
-        payload: board
+        payload: {
+            board: board,
+            lobby: lobby
+        }
     }
 }

@@ -4,14 +4,14 @@ import styled from 'styled-components';
 const StyledTile = styled.div`
   border: 1px solid black;
   boxSizing: border-box;
-  min-width: ${props => props.windowHeight*.11}px;
-  min-height: ${props => props.windowHeight*.11}px;
+  min-width: ${props => props.windowHeight*.08}px;
+  min-height: ${props => props.windowHeight*.08}px;
   background: ${props => props.color};
   textAlign: center;
   position: relative;
 `
 const StyledPiece = styled.div`
-  font-size:  ${props => props.windowHeight*.08}px;
+  font-size:  ${props => props.windowHeight*.07}px;
   text-align: center;
   color: ${props => props.color};
 `

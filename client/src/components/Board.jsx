@@ -4,23 +4,23 @@ import styled from 'styled-components';
 
 const StyledBoard = styled.div`
   border: ${props => props.windowHeight*.01}px solid tan;
-  height: ${props => props.windowHeight*.88}px;
-  width: ${props => props.windowHeight*.88}px;
+  height: ${props => props.windowHeight*.64}px;
+  width: ${props => props.windowHeight*.64}px;
   boxSizing: border-box;
   margin: auto;
 `;
 
 const StyledSquares = styled.div`
   display: grid;
-  grid-template-columns: repeat(8, ${props => props.windowHeight*.11}px);
-  grid-template-rows: repeat(8, ${props => props.windowHeight*.11}px);
+  grid-template-columns: repeat(8, ${props => props.windowHeight*.08}px);
+  grid-template-rows: repeat(8, ${props => props.windowHeight*.08}px);
 `;
 
 function Board(props) {
   const rows = props.board;  //figure out why there are 2 board keys to get to the array
-
+  console.log(props.board)
   //going through matrix rows then through each row and grabbing tiles
-  const rowsList = rows.map((row, colIndex) => { 
+  var rowsList = rows.map((row, colIndex) => { 
       return row.map((tile, rowIndex) => {
         // debugger;
         // {console.log(`${colIndex}${rowIndex}`, ': ', tile)}
@@ -31,10 +31,27 @@ function Board(props) {
         )
       })
   })
+  var greeting = <div className='welcomeMsg'></div>
+  if (props.board.length === 1) {
+    greeting = 
+    <div className='welcomeMsg'>
+      <h1>To Start a Game Type the Name of your Lobby and Click New Game</h1>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <h1>To Continue a Game Type the Name of your Lobby and Click Continue Game</h1>
+    </div>
+  }
 
   return (
     <StyledBoard windowHeight={props.windowHeight}>
       <div className='board'>
+        {greeting}
         <StyledSquares windowHeight={props.windowHeight}>
           {rowsList}
         </StyledSquares>
