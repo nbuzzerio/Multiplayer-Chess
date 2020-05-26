@@ -22,8 +22,6 @@ function Board(props) {
   //going through matrix rows then through each row and grabbing tiles
   var rowsList = rows.map((row, colIndex) => { 
       return row.map((tile, rowIndex) => {
-        // debugger;
-        // {console.log(`${colIndex}${rowIndex}`, ': ', tile)}
         return (
           <div className='rows' onClick={() => {props.onTileClick(tile)}}>
             <Tile tile={tile} holdingPiece={props.holdingPiece} heldPiece={props.heldPiece} turn={props.turn} lobby={props.lobby} key={rowIndex + '' + colIndex} windowHeight={props.windowHeight} onTileClick={props.onTileClick}/>

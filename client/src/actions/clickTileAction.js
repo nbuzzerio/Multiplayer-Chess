@@ -16,7 +16,7 @@ export function setClickedTile(tileProps) {
             store.dispatch(setLiftedPiece(coord, piece, pieceColor, tileColor, props.board));
           }
           //if piece is currently being held
-          if (props.holdingPiece && (tileProps.pieceColor !== props.heldPiece.pieceColor)) {
+          if (props.holdingPiece && (tileProps.pieceColor !== props.heldPiece.pieceColor || coord === props.heldPiece.coord)) {
             store.dispatch(setPlacedPiece(coord, props));
           } else {
             return {

@@ -4,6 +4,9 @@ export default function setLiftedPiece(coord, piece, pieceColor, tileColor, boar
       var row = Number(coord[0]);
       var col = Number(coord[1]);
       board[row][col].tileColor = 'green';
+
+      //also remove the held piece from the board
+      board[row][col].piece = '';
       
       return {
           type: 'SET_LIFTED_PIECE',
