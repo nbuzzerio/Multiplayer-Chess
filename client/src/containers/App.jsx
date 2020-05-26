@@ -21,17 +21,18 @@ class App extends React.Component {
   render () {
     return (
     <div>
-      <h1>{ this.props.boardProps.lobbyTaken ? 'Lobby taken! Pick a new lobby to play a': (this.props.boardProps.lobby !== '' ? this.props.boardProps.lobby + '\'s' : '' )} Chess Game</h1>
+      <h1>{ this.props.boardProps.lobbyTaken ? 'Lobby taken! Pick a new lobby to play a Chess Game': (this.props.boardProps.lobby !== '' ? 'Chess Game in Room: ' + this.props.boardProps.lobby : 'Chess Game')}</h1>
       <hr></hr>
       <br></br>
-      <button onClick={() => {this.props.onGameButtonClick(this.props.textField, true)}}>Create a New Game</button>
-      <button onClick={() => {this.props.onGameButtonClick(this.props.textField, false)}}>Continue Game</button> 
+      <button onClick={() => {this.props.onGameButtonClick(this.props.boardProps.textField, true)}}>Create a New Game</button>
+      <button onClick={() => {this.props.onGameButtonClick(this.props.boardProps.textField, false)}}>Continue Game</button> 
     {/*I should abstract the textfield away from the board reducer later*/}
-      <input type='text' name='lobby' value={this.props.boardProps.textField} onChange={(e) => {this.props.onTextFieldChange(e)}}></input>
+      <input type='text' name='lobby' placeholder='Room Name' value={this.props.boardProps.textField} onChange={(e) => {this.props.onTextFieldChange(e)}}></input>
       <button style={{float: 'right'}} onClick={this.undo}>Undo Move</button>
       <br></br>
       <br></br>
       <hr></hr>
+      <h1>{this.props.boardProps.lobbyExists ? '' : 'Lobby does not exist please create a new game or resume a current lobby.'}</h1>
       <br></br>
 
       <Board board={this.props.boardProps.board} holdingPiece={this.props.boardProps.holdingPiece} heldPiece={this.props.boardProps.heldPiece} turn={this.props.boardProps.turn} lobby={this.props.boardProps.lobby} windowHeight={this.props.windowHeight} onTileClick={this.props.onTileClick}/>

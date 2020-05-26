@@ -80,10 +80,10 @@ function createBoard() {
     }
     return board;
 }
-const board = createBoard();
+const newBoard = createBoard();
 
 const boardReducer = (state = {
-    board: [[]],
+    board: newBoard,
     textField: '',
     lobby: '',
     holdingPiece: false,
@@ -127,7 +127,8 @@ const boardReducer = (state = {
         case 'SET_LOBBY_TAKEN':
             state = {
                 ...state,
-                lobbyTaken: action.payload
+                lobbyTaken: action.payload,
+                lobbyExists: true
             };
             break;
         case 'SET_LOBBY_EXISTS':
@@ -140,6 +141,14 @@ const boardReducer = (state = {
             state = {
                 ...state,
                 textField: action.payload
+            };
+            break;
+        case 'SET_RESUME_GAME':
+            state = {
+                ...state,
+                board: action.payload.board,
+                lobby: action.payload.lobby,
+                turn: action.payload.turn
             };
             break;
     }

@@ -8,37 +8,38 @@ const ChessGame = require('../database/index.js').ChessGame
 
 const app = express();
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.use(express.static('./client/dist'));
 
 app.post('/newGame', (req, res) => {
+  console.log(req)
   var lobby = req.body.lobby;
   var turn = req.body.turn;
-    var board = req.body.board
-    console.log('Am I even receiving anything?:', req.body.lobby)
-    
-    ChessGame.create({lobby: lobby, board: board, turn: turn}, (err, doc) => {
-      if (err) {
-        console.log(err);
-        console.log({error: 'lobby already created'});
-        res.send(JSON.stringify({error: 'Sorry, lobby already created'}))
-      } else {
-        res.send(JSON.stringify(doc));
-      }
-    })
-  })
+  var board = req.body.board
+  console.log('Am I even receiving anything?:', req.body.lobby)
   
-  app.get('/resumeGame', (req, res) => {
+  ChessGame.create({lobby: lobby, board: board, turn: turn}, (err, doc) => {
+    if (err) {
+      console.log(err);
+      console.log({error: 'lobby already created'});
+      res.send(JSON.stringify({error: 'Sorry, lobby already created'}))
+    } else {
+      res.send(JSON.stringify(doc));
+    }
+  })
+})
+  
+  app.post('/resumeGame', (req, res) => {
     var lobby = req.body.lobby;
-    console.log('trying to update:', req.body.lobby)
+    console.log('trying to resume:', req.body.lobby)
     
     ChessGame.find( {lobby: lobby}, (err, doc) => {
       if (err) {
         console.log(err);
-        console.log({error: 'Sorry save game does not exist'});
         res.send(JSON.stringify({error: 'Sorry, save game does not exist'}))
       } else {
+        console.log('Is a doc found? Here: ', doc)
         res.send(JSON.stringify(doc));
       }
     })

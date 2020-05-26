@@ -18,7 +18,7 @@ const StyledSquares = styled.div`
 
 function Board(props) {
   const rows = props.board;  //figure out why there are 2 board keys to get to the array
-  console.log(props.board)
+  
   //going through matrix rows then through each row and grabbing tiles
   var rowsList = rows.map((row, colIndex) => { 
       return row.map((tile, rowIndex) => {
@@ -32,7 +32,8 @@ function Board(props) {
       })
   })
   var greeting = <div className='welcomeMsg'></div>
-  if (props.board.length === 1) {
+  if (props.lobby === '') {
+    rowsList = <div></div> //removes board
     greeting = 
     <div className='welcomeMsg'>
       <h1>To Start a Game Type the Name of your Lobby and Click New Game</h1>

@@ -1,34 +1,67 @@
-import store from '../store.js'
+import store from '../store.js';
+import { setBoard } from './boardAction.js';
 
 export function setNewOrContinueBoard(lobby, newGame) {
     
-    
-    //fetch board state by lobby
+    //return a function with parameter dispatch for thunk to handle
+    return function (dispatch) {
+        var state = store.getState();
 
-    var board; //will set result of fetch for lobby
-
-    //if 
-
-
-    if (board) {//if lobby already exists return board payload as state it was in
-        return {
-            type: 'SET_BOARD',
-            payload: {
-                board: board,
-                lobby: lobby
-            }
-        }
-    } else if (newGame && !board) { //create brand new board using board action if newGame button was clicked and board did not exist for that lobby
-        store.dispatch(setBoard(lobby));
-    } else if (newGame && board) {
-        return {
-            type: 'SET_LOBBY_TAKEN',
-            payload: true
-        }
-    } else {
-        return {
-            type: 'SET_LOBBY_EXISTS',
-            payload: false
+        if (newGame) {
+            //create newGame if lobby does not exist
+            fetch('/newGame', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({lobby: lobby, board: state.boardProps.board, turn: state.boardProps.turn})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    //lobby was taken so newGame was not created
+                    dispatch({
+                        type: 'SET_LOBBY_TAKEN',
+                        payload: true
+                    })
+                } else {
+                    //lobby was free so newGame was created
+                    store.dispatch(setBoard(lobby));
+                }
+            })
+            .catch((err) => {
+                console.log('Error posting new game lobby: ', err)
+            });         
+        } else {
+            //fetch board state by lobby
+            fetch('/resumeGame', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({lobby: lobby})
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.length === 0) { //lobby not found
+                    dispatch({
+                        type: 'SET_LOBBY_EXISTS',
+                        payload: false
+                    })
+                } else {
+                    dispatch({
+                        type: 'SET_RESUME_GAME',
+                        payload: {
+                            board: data[0].board,
+                            lobby: data[0].lobby,
+                            turn: data[0].turn     
+                        }
+                    })
+                }
+            })
+            .catch((err) => {
+                console.log('Error posting resume game with lobby: ', err)
+            });   
         }
     }
 }

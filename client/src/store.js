@@ -1,13 +1,12 @@
-import {createStore, combineReducers} from 'redux';
+import {createStore, combineReducers, applyMiddleware} from 'redux';
+import thunk from 'redux-thunk';
 
-// import reducers
 import boardReducer from './reducers/boardReducer.js';
 import windowReducer from './reducers/windowReducer.js';
 
 export default createStore(
     combineReducers({
-        //put reducers here
         boardProps: boardReducer,
         windowHeight: windowReducer     
-    })
-)
+    }), applyMiddleware(thunk)
+);
