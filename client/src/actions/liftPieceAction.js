@@ -7,7 +7,12 @@ export default function setLiftedPiece(coord, piece, pieceColor, tileColor, boar
 
       //also remove the held piece from the board
       board[row][col].piece = '';
+      const held = document.getElementById('heldPiece');
+      held.innerHTML = piece;
+      held.style.color = pieceColor;
       
+      held.style.fontSize = `${window.innerHeight*.07}px`; //make this dynamic
+
       return {
           type: 'SET_LIFTED_PIECE',
           payload: {board: board,

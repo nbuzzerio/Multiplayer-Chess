@@ -30,32 +30,26 @@ app.post('/newGame', (req, res) => {
   })
 })
   
-  app.post('/resumeGame', (req, res) => {
-    var lobby = req.body.lobby;
-    console.log('trying to resume:', req.body.lobby)
-    
-    ChessGame.find( {lobby: lobby}, (err, doc) => {
-      if (err) {
-        console.log(err);
-        res.send(JSON.stringify({error: 'Sorry, save game does not exist'}))
-      } else {
-        console.log('Is a doc found? Here: ', doc)
-        res.send(JSON.stringify(doc));
-      }
-    })
+app.post('/resumeGame', (req, res) => {
+  var lobby = req.body.lobby;
+  console.log('trying to resume:', req.body.lobby)
+  
+  ChessGame.find( {lobby: lobby}, (err, doc) => {
+    if (err) {
+      console.log(err);
+      res.send(JSON.stringify({error: 'Sorry, save game does not exist'}))
+    } else {
+      console.log('Is a doc found? Here: ', doc)
+      res.send(JSON.stringify(doc));
+    }
   })
-  
-  const port = process.env.PORT || 3000;
-  
-  app.listen(port, () => console.log(`The server is Running on port ${port}!`));
-  
-  /*
-  
-  app.post('/updateGame', (req, res) => {
-    var lobby = req.body.lobby;
-    var turn = req.body.turn;
-    var board = req.body.board
-    console.log('trying to update:', req.body.lobby)
+})
+
+app.post('/updateGame', (req, res) => {
+  var lobby = req.body.lobby;
+  var turn = req.body.turn;
+  var board = req.body.board
+  console.log('trying to update:', req.body.lobby)
 
   ChessGame.findOneAndUpdate( {lobby: lobby}, {board: board, turn: turn}, (err, doc) => {
     if (err) {
@@ -66,5 +60,9 @@ app.post('/newGame', (req, res) => {
       res.send(JSON.stringify(doc));
     }
   })
-})
-*/
+});
+  
+const port = process.env.PORT || 3000;
+
+app.listen(port, () => console.log(`The server is Running on port ${port}!`));
+  

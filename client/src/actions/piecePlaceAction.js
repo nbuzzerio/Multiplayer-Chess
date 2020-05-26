@@ -9,48 +9,79 @@ export default function setPlacedPiece(coord, state) {
       var lastRow = Number(state.heldPiece.coord[0])
       var lastCol = Number(state.heldPiece.coord[1])
       var turnContinue = false;
-      //check if Piece is placed back where it was meaning the turn continues
-      if (lastRow === row && lastCol === col) {
-        turnContinue = true;
-        board[lastRow][lastCol].tileColor = state.heldPiece.tileColor;
-      } else {
-        board[lastRow][lastCol].tileColor = state.heldPiece.tileColor;
-        board[lastRow][lastCol].piece = '';
-        board[lastRow][lastCol].pieceColor = ''
-      }
-      if (state.turn === 'white') {
-        // this.setState({lastTurn: JSON.stringify({board: this.state.board, turn: this.state.turn})})
+      const held = document.getElementById('heldPiece');
+      held.innerHTML = '';
+
+        //check if Piece is placed back where it was meaning the turn continues
+        if (lastRow === row && lastCol === col) {
+          turnContinue = true;
+          board[lastRow][lastCol].tileColor = state.heldPiece.tileColor;
+        } else {
+          board[lastRow][lastCol].tileColor = state.heldPiece.tileColor;
+          board[lastRow][lastCol].piece = '';
+          board[lastRow][lastCol].pieceColor = '';
+        }
+        
+      var lobby = state.lobby;
+      return function (dispatch) {
+        if (state.turn === 'white') {
         var turn = turnContinue ? 'white' : 'black'
-        return {
-          type: 'SET_PLACED_PIECE',
-          payload: {board: board,
+        //create newGame if lobby does not exist
+        fetch('/updateGame', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({lobby: lobby, board: board, turn: turn})
+        })
+        .then(response => response.json())
+        .then(data => {
+          dispatch({
+            type: 'SET_PLACED_PIECE',
+            payload: {board: board,
+              holdingPiece: false, 
+              heldPiece: {
+                coord: '',
+                piece: '',
+                pieceColor: '',
+                tileColor: '',
+              },
+              turn: turn
+            }
+          })
+        })
+        .catch((err) => {
+            console.log('Error posting new game lobby: ', err)
+        });         
+      } else {
+        var turn = turnContinue ? 'black' : 'white'
+        fetch('/updateGame', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({lobby: lobby, board: board, turn: turn})
+        })
+        .then(response => response.json())
+        .then(data => {
+          dispatch({
+            type: 'SET_PLACED_PIECE',
+            payload: {board: board,
             holdingPiece: false, 
             heldPiece: {
               coord: '',
               piece: '',
               pieceColor: '',
-              tileColor: '',
+              tileColor: ''
             },
             turn: turn
-          }
-        };
-      } else {
-        // this.setState({lastTurn: JSON.stringify({board: this.state.board, turn: this.state.turn})})
-        var turn = turnContinue ? 'black' : 'white'
-        return {
-          type: 'SET_PLACED_PIECE',
-          payload: {board: board,
-          holdingPiece: false, 
-          heldPiece: {
-            coord: '',
-            piece: '',
-            pieceColor: '',
-            tileColor: ''
-          },
-          turn: turn
-          }
-        };
-      }
+            }
+          })
+        })
+        .catch((err) => {
+            console.log('Error posting new game lobby: ', err)
+        });         
+      }}
   }
 
   return onPiecePlace(coord, state);

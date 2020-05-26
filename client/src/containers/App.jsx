@@ -15,6 +15,19 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener('resize', this.props.setWindowHeight);
+    //add event listener for heldpiece to follow mouse
+    const held = document.getElementById('heldPiece');
+    //style the element
+    held.style.boxSizing = 'boarder-box';
+    held.style.position = 'absolute';
+    held.style.pointerEvents = 'none';
+      window.addEventListener('mousemove', e => {
+        var left = e.clientX - 20;
+        var top = e.clientY - 40
+        held.style.left = `${left}px`;
+        held.style.top = `${top}px`;
+        
+      });
   }
 
 
@@ -36,6 +49,7 @@ class App extends React.Component {
       <br></br>
 
       <Board board={this.props.boardProps.board} holdingPiece={this.props.boardProps.holdingPiece} heldPiece={this.props.boardProps.heldPiece} turn={this.props.boardProps.turn} lobby={this.props.boardProps.lobby} windowHeight={this.props.windowHeight} onTileClick={this.props.onTileClick}/>
+      <div id='heldPiece'></div>
     </div>)
   }
 }

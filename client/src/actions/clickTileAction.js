@@ -10,7 +10,6 @@ export function setClickedTile(tileProps) {
           var piece = tileProps.piece;
           var pieceColor = tileProps.pieceColor;
           var tileColor = tileProps.tileColor;
-          
           //if NO piece is currently held
           if (!props.holdingPiece && tileProps.piece && tileProps.pieceColor === props.turn) {
             store.dispatch(setLiftedPiece(coord, piece, pieceColor, tileColor, props.board));
