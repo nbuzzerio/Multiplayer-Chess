@@ -7,6 +7,26 @@ const chessSchema = require('../database/index.js').chessSchema
 const ChessGame = require('../database/index.js').ChessGame
 
 const app = express();
+const http = require('http').createServer(app);
+//initilize a new instance of socket-io and pass in the http server
+const io = require('socket.io')(http);
+
+//creates listener for user connecting and disconnection
+io.on('connection', (socket) => {
+  console.log('Socket connected: ', socket.id);
+  io.emit('newConnection', socket.id + 'has connected to the game.')
+  socket.on('disconnect', () => {
+    console.log('user disconnected');
+    io.emit('newDisconnection', socket.id + 'has disconnected from the game.')
+  });
+  socket.on('action', (action) => {
+    console.log("This is the state: ", action)
+    io.emit('action', {
+      type: action.type.slice(7),
+      payload: action.payload
+    });
+  });
+});
 
 app.use(bodyParser.json());
 
@@ -64,5 +84,5 @@ app.post('/updateGame', (req, res) => {
   
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`The server is Running on port ${port}!`));
+http.listen(port, () => console.log(`The server is Running on port ${port}!`));
   

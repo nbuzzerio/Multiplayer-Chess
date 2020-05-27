@@ -39,7 +39,7 @@ export default function setPlacedPiece(coord, state, dispatch) {
         .then((data) => {
           console.log(data)
           dispatch({
-            type: 'SET_PLACED_PIECE',
+            type: 'server/SET_PLACED_PIECE',
             payload: {board: board,
               holdingPiece: false, 
               heldPiece: {
@@ -67,7 +67,7 @@ export default function setPlacedPiece(coord, state, dispatch) {
         .then(response => response.json())
         .then(() => {
           dispatch({
-            type: 'SET_PLACED_PIECE',
+            type: 'server/SET_PLACED_PIECE',
             payload: {board: board,
             holdingPiece: false, 
             heldPiece: {

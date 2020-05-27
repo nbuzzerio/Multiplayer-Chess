@@ -10,7 +10,6 @@ import { setPlacedPiece } from '../actions/piecePlaceAction.js';
 import { setNewOrContinueBoard } from '../actions/gameStateAction.js';
 import { setNewTextField } from '../actions/textFieldAction.js';
 
-
 class App extends React.Component {
 
   componentDidMount() {
