@@ -1,5 +1,6 @@
-export default function setPlacedPiece(coord, state) {
-    function onPiecePlace(coord) {
+export default function setPlacedPiece(coord, state, dispatch) {
+
+    return function (dispatch) {
       var row = Number(coord[0]);
       var col = Number(coord[1]);
       var board = state.board;
@@ -23,7 +24,7 @@ export default function setPlacedPiece(coord, state) {
         }
         
       var lobby = state.lobby;
-      return function (dispatch) {
+      /////////////////////////////////
         if (state.turn === 'white') {
         var turn = turnContinue ? 'white' : 'black'
         //create newGame if lobby does not exist
@@ -35,7 +36,8 @@ export default function setPlacedPiece(coord, state) {
           body: JSON.stringify({lobby: lobby, board: board, turn: turn})
         })
         .then(response => response.json())
-        .then(data => {
+        .then((data) => {
+          console.log(data)
           dispatch({
             type: 'SET_PLACED_PIECE',
             payload: {board: board,
@@ -63,7 +65,7 @@ export default function setPlacedPiece(coord, state) {
           body: JSON.stringify({lobby: lobby, board: board, turn: turn})
         })
         .then(response => response.json())
-        .then(data => {
+        .then(() => {
           dispatch({
             type: 'SET_PLACED_PIECE',
             payload: {board: board,
@@ -81,8 +83,6 @@ export default function setPlacedPiece(coord, state) {
         .catch((err) => {
             console.log('Error posting new game lobby: ', err)
         });         
-      }}
-  }
-
-  return onPiecePlace(coord, state);
+      }
+    }
 }
