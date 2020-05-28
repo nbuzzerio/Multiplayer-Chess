@@ -1,6 +1,6 @@
-export default function setPlacedPiece(coord, state, debounce) {
+export default function setPlacedPiece(coord, state, location) {
 
-  window.removeEventListener('mousemove', debounce);
+  document.removeEventListener('mousemove', location);
 
     return function (dispatch) {
       var row = Number(coord[0]);
@@ -39,7 +39,6 @@ export default function setPlacedPiece(coord, state, debounce) {
         })
         .then(response => response.json())
         .then((data) => {
-          console.log(data)
           dispatch({
             type: 'server/SET_PLACED_PIECE',
             payload: {board: board,

@@ -1,4 +1,4 @@
-export default function setLiftedPiece(coord, piece, pieceColor, tileColor, board, debounce) {
+export default function setLiftedPiece(coord, piece, pieceColor, tileColor, board, location) {
     var row = Number(coord[0]);
     var col = Number(coord[1]);
     board[row][col].tileColor = 'green';
@@ -8,7 +8,7 @@ export default function setLiftedPiece(coord, piece, pieceColor, tileColor, boar
     held.innerHTML = piece;
     held.style.color = pieceColor;
     
-    window.addEventListener('mousemove', debounce);
+    document.addEventListener('mousemove', location);
 
     return {
       type: 'server/SET_LIFTED_PIECE',
