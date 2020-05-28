@@ -15,11 +15,11 @@ socket.on('newDisconnection', (msg) => {
 
 
 import boardReducer from './reducers/boardReducer.js';
-import windowReducer from './reducers/windowReducer.js';
+import clientReducer from './reducers/clientReducer.js';
 
 export default createStore(
     combineReducers({
         boardProps: boardReducer,
-        windowHeight: windowReducer     
+        clientProps: clientReducer     
     }), applyMiddleware(thunk, socketIoMiddleware)
 );

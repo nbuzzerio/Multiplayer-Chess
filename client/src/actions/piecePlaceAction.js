@@ -1,4 +1,6 @@
-export default function setPlacedPiece(coord, state, dispatch) {
+export default function setPlacedPiece(coord, state, debounce) {
+
+  window.removeEventListener('mousemove', debounce);
 
     return function (dispatch) {
       var row = Number(coord[0]);

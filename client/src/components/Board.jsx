@@ -23,7 +23,7 @@ function Board(props) {
   var rowsList = rows.map((row, colIndex) => { 
       return row.map((tile, rowIndex) => {
         return (
-          <div className='rows' onClick={() => {props.onTileClick(tile)}}>
+          <div className='rows' onClick={() => {props.onTileClick(tile, props.setHeldPieceLocation)}}>
             <Tile tile={tile} holdingPiece={props.holdingPiece} heldPiece={props.heldPiece} turn={props.turn} lobby={props.lobby} key={rowIndex + '' + colIndex} windowHeight={props.windowHeight} onTileClick={props.onTileClick}/>
           </div>
         )
