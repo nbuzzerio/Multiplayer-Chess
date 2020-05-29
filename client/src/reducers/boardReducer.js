@@ -93,8 +93,18 @@ const boardReducer = (state = {
     pieceColor: ''
     },
     heldPieceLocation: {
-        left: 0,
-        top: 0
+        boardXratio: -1,
+        boardYratio: -1,
+        boardLocation: {
+            bottom: 0,
+            height: 0,
+            left: 0,
+            right: 0,
+            top: 0,
+            width: 0,
+            x: 0,
+            y: 0
+        }
     },
     turn: 'white',
     lobbyTaken: false,
@@ -107,6 +117,7 @@ const boardReducer = (state = {
                 ...state,
                 board: action.payload.board,
                 lobby: action.payload.lobby,
+                turn: action.payload.turn,
                 lobbyTaken: false,
                 lobbyExists: true
             };
@@ -116,7 +127,8 @@ const boardReducer = (state = {
                 ...state,
                 board: action.payload.board,
                 holdingPiece: action.payload.holdingPiece, 
-                heldPiece: action.payload.heldPiece
+                heldPiece: action.payload.heldPiece,
+                heldPieceLocation: action.payload.heldPieceLocation
             };
             break;
         case 'SET_HELD_PIECE_LOCATION':

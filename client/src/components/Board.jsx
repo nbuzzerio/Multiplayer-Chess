@@ -49,7 +49,7 @@ function Board(props) {
 
   return (
     <StyledBoard windowHeight={props.windowHeight}>
-      <div className='board'>
+      <div id='board'>
         {greeting}
         <StyledSquares windowHeight={props.windowHeight}>
           {rowsList}

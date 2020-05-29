@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Board from '../components/Board.jsx';
 import { setBoard } from '../actions/boardAction.js';
 import { setWindowHeight } from '../actions/windowAction.js';
+import { setBoardDimensions } from '../actions/boardDimensionsAction.js';
 import { setClickedTile } from '../actions/clickTileAction.js';
 import { setLiftedPiece } from '../actions/liftPieceAction.js';
 import { setHeldPieceLocation } from '../actions/heldPieceLocationAction.js';
@@ -14,7 +15,15 @@ import { setNewTextField } from '../actions/textFieldAction.js';
 class App extends React.Component {
 
   componentDidMount() {
+    console.log(this.props)
+
     window.addEventListener('resize', this.props.setWindowHeight);
+    window.addEventListener('resize', this.props.setBoardDimensions);
+    //set it initially as well
+    this.props.setBoardDimensions();
+
+    console.log('after', this.props)
+
 
   }
 
@@ -35,7 +44,17 @@ class App extends React.Component {
       <h1>{this.props.boardProps.lobbyExists ? '' : 'Lobby does not exist please create a new game or resume a current lobby.'}</h1>
       <br></br>
       <Board board={this.props.boardProps.board} holdingPiece={this.props.boardProps.holdingPiece} heldPiece={this.props.boardProps.heldPiece} turn={this.props.boardProps.turn} lobby={this.props.boardProps.lobby} windowHeight={this.props.clientProps.windowHeight} onTileClick={this.props.onTileClick} setHeldPieceLocation={this.props.setHeldPieceLocation}/>
-    <div id='heldPiece' style={{fontSize: `${window.innerHeight*.07}px`, color: this.props.boardProps.heldPiece.pieceColor, left: `${this.props.boardProps.heldPieceLocation.left * window.innerWidth}px`, top: `${this.props.boardProps.heldPieceLocation.top * this.props.clientProps.windowHeight}px`, boxSizing: 'boarder-box', position: 'absolute', pointerEvents: 'none'}}>{this.props.boardProps.heldPiece.piece}</div>
+    <div id='heldPiece' style={{fontSize: `${window.innerHeight*.07}px`, color: this.props.boardProps.heldPiece.pieceColor, 
+    
+    left: `${this.props.boardProps.heldPieceLocation.boardXratio * 
+      this.props.clientProps.boardDimensions.width + this.props.clientProps.boardDimensions.left
+    }px`, 
+    
+    top: `${this.props.boardProps.heldPieceLocation.boardYratio * 
+      this.props.clientProps.boardDimensions.height + this.props.clientProps.boardDimensions.top
+    }px`,
+    
+    boxSizing: 'boarder-box', position: 'absolute', pointerEvents: 'none'}}>{this.props.boardProps.heldPiece.piece}</div> 
     </div>)
   }
 }
@@ -54,6 +73,9 @@ const mapDispatchToProps = (dispatch) => {
       },
       setWindowHeight: (size) => {
         dispatch(setWindowHeight(size))
+      },
+      setBoardDimensions: () => {
+        dispatch(setBoardDimensions())
       },
       onTileClick: (tileProps, pieceLocation) => {
         dispatch(setClickedTile(tileProps, pieceLocation))

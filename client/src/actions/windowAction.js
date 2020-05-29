@@ -1,9 +1,13 @@
 export function setWindowHeight(size) {
 
-    var windowSize = size.target.innerHeight - 155;
+    var height = size.target.innerHeight;
+    var width = size.target.innerWidth;
 
     return {
         type: 'SET_WINDOW',
-        payload: windowSize
+        payload: {
+            height: height,
+            width: width,
+        }
     }
 }

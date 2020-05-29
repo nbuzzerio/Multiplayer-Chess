@@ -1,22 +1,31 @@
+import store from '../store.js'
+
 export function setHeldPieceLocation(e) {
-    //get these values relative to screensize
-    var left = (e.clientX - 20) / window.innerWidth;
-    var top = (e.clientY - 40) / window.innerHeight;
-    //throttle for mousemoves under 50ms
+    
+    var board = store.getState().clientProps.boardDimensions;
+    
+    //removes space as if board begins at top right corner of window
+    var left = e.clientX - board.left;
+    var top = e.clientY - board.top;
+    //ratio of cursor on board axes
+    var boardXratio = left / board.width
+    var boardYratio = top / board.height
+
     if (window.timer === undefined || (new Date().getTime() - window.timer > 50)) {
         window.timer = new Date().getTime();
         return function (dispatch) {
             dispatch({   
                 type: 'server/SET_HELD_PIECE_LOCATION',
                 payload: {
-                    left: left,
-                    top: top
+                    boardXratio,
+                    boardYratio,
+                    boardLocation: board
                 }
             })
         }
-    } else {
-        return {
-            type:'NO NO_ACTION'
-        }
+    } 
+
+    return {
+        type:'NO NO_ACTION'
     }
 }

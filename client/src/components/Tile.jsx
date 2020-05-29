@@ -14,6 +14,7 @@ const StyledPiece = styled.div`
   font-size:  ${props => props.windowHeight*.07}px;
   text-align: center;
   color: ${props => props.color};
+  user-select: none;
 `
 
 

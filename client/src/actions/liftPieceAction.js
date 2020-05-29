@@ -19,6 +19,10 @@ export default function setLiftedPiece(coord, piece, pieceColor, tileColor, boar
           piece: piece,
           pieceColor: pieceColor,
           tileColor: tileColor
+        },
+        heldPieceLocation: {
+          boardXratio: -1000,
+          boardYratio: -1000
         }
       }
     }

@@ -58,9 +58,9 @@ export function setBoard(lobby) {
                 } else if (o === 2 || o === 5) {
                 board[i][o].piece = 'B'
                 } else if (o === 3) {
-                board[i][o].piece = 'K'
-                } else if (o === 4) {
                 board[i][o].piece = 'Q'
+                } else if (o === 4) {
+                board[i][o].piece = 'K'
                 }
             }
     
@@ -73,9 +73,9 @@ export function setBoard(lobby) {
                 } else if (o === 2 || o === 5) {
                 board[i][o].piece = 'B'
                 } else if (o === 3) {
-                board[i][o].piece = 'K'
-                } else if (o === 4) {
                 board[i][o].piece = 'Q'
+                } else if (o === 4) {
+                board[i][o].piece = 'K'
                 }
             }
             }
@@ -87,7 +87,8 @@ export function setBoard(lobby) {
         type: 'SET_BOARD',
         payload: {
             board: board,
-            lobby: lobby
+            lobby: lobby,
+            turn: 'white'
         }
     }
 }
