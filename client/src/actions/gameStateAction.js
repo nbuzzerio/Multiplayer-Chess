@@ -1,5 +1,8 @@
 import store from '../store.js';
+import { socket } from '../store.js';
 import { setBoard } from './boardAction.js';
+
+console.log('store in gamestate', store)
 
 export function setNewOrContinueBoard(lobby, newGame) {
     
@@ -49,6 +52,14 @@ export function setNewOrContinueBoard(lobby, newGame) {
                         payload: false
                     })
                 } else {
+                    socket.on(`joinRoom-${lobby}`, (lobby) => {
+                        console.log('Welcome to room: ', lobby)
+                    })
+                    socket.emit('joinRoom', lobby)
+
+                    //lobby was free so newGame was created
+                    store.dispatch(setBoard(lobby));
+
                     dispatch({
                         type: 'SET_RESUME_GAME',
                         payload: {

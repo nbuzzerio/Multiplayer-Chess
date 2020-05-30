@@ -25,64 +25,70 @@ io.on('connection', (socket) => {
       type: action.type.slice(7),
       payload: action.payload
     });
+  }); //.to(lobby/server/)
+
+  socket.on('joinRoom', (lobby) => {
+    socket.join(`joinRoom-${lobby}`, () => {
+      console.log('Whats in here:', socket.id);
+      io.to(`joinRoom-${lobby}`).emit(`joinRoom-${lobby}`, `The user ${socket.id} has joined the room.`)
+    });
   });
-});
 
-app.use(bodyParser.json());
+  app.use(bodyParser.json());
 
-app.use(express.static('./client/dist'));
+  app.use(express.static('./client/dist'));
 
-app.post('/newGame', (req, res) => {
-  console.log(req)
-  var lobby = req.body.lobby;
-  var turn = req.body.turn;
-  var board = req.body.board
-  console.log('Am I even receiving anything?:', req.body.lobby)
-  
-  ChessGame.create({lobby: lobby, board: board, turn: turn}, (err, doc) => {
-    if (err) {
-      console.log(err);
-      console.log({error: 'lobby already created'});
-      res.send(JSON.stringify({error: 'Sorry, lobby already created'}))
-    } else {
-      res.send(JSON.stringify(doc));
-    }
+  app.post('/newGame', (req, res) => {
+    console.log(req)
+    var lobby = req.body.lobby;
+    var turn = req.body.turn;
+    var board = req.body.board
+    console.log('Am I even receiving anything?:', req.body.lobby)
+    
+    ChessGame.create({lobby: lobby, board: board, turn: turn}, (err, doc) => {
+      if (err) {
+        console.log(err);
+        console.log({error: 'lobby already created'});
+        res.send(JSON.stringify({error: 'Sorry, lobby already created'}))
+      } else {
+        res.send(JSON.stringify(doc));
+      }
+    })
   })
-})
-  
-app.post('/resumeGame', (req, res) => {
-  var lobby = req.body.lobby;
-  console.log('trying to resume:', req.body.lobby)
-  
-  ChessGame.find( {lobby: lobby}, (err, doc) => {
-    if (err) {
-      console.log(err);
-      res.send(JSON.stringify({error: 'Sorry, save game does not exist'}))
-    } else {
-      console.log('Is a doc found? Here: ', doc)
-      res.send(JSON.stringify(doc));
-    }
+    
+  app.post('/resumeGame', (req, res) => {
+    var lobby = req.body.lobby;
+    console.log('trying to resume:', req.body.lobby)
+    
+    ChessGame.find( {lobby: lobby}, (err, doc) => {
+      if (err) {
+        console.log(err);
+        res.send(JSON.stringify({error: 'Sorry, save game does not exist'}))
+      } else {
+        console.log('Is a doc found? Here: ', doc)
+        res.send(JSON.stringify(doc));
+      }
+    })
   })
-})
 
-app.post('/updateGame', (req, res) => {
-  var lobby = req.body.lobby;
-  var turn = req.body.turn;
-  var board = req.body.board
-  console.log('trying to update:', req.body.lobby)
+  app.post('/updateGame', (req, res) => {
+    var lobby = req.body.lobby;
+    var turn = req.body.turn;
+    var board = req.body.board
+    console.log('trying to update:', req.body.lobby)
 
-  ChessGame.findOneAndUpdate( {lobby: lobby}, {board: board, turn: turn}, (err, doc) => {
-    if (err) {
-      console.log(err);
-      console.log({error: 'Sorry could not update'});
-      res.send(JSON.stringify({error: 'Sorry, could not save game update'}))
-    } else {
-      res.send(JSON.stringify(doc));
-    }
-  })
+    ChessGame.findOneAndUpdate( {lobby: lobby}, {board: board, turn: turn}, (err, doc) => {
+      if (err) {
+        console.log(err);
+        console.log({error: 'Sorry could not update'});
+        res.send(JSON.stringify({error: 'Sorry, could not save game update'}))
+      } else {
+        res.send(JSON.stringify(doc));
+      }
+    })
+  });
 });
   
 const port = process.env.PORT || 3000;
 
 http.listen(port, () => console.log(`The server is Running on port ${port}!`));
-  
