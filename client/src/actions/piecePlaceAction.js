@@ -1,6 +1,6 @@
-export default function setPlacedPiece(coord, state, location) {
+export default function setPlacedPiece(coord, state, setHeldPieceLocation) {
 
-  document.removeEventListener('mousemove', location);
+  document.removeEventListener('mousemove', setHeldPieceLocation);
 
     return function (dispatch) {
       var row = Number(coord[0]);
@@ -49,7 +49,8 @@ export default function setPlacedPiece(coord, state, location) {
                 pieceColor: '',
                 tileColor: '',
               },
-              turn: turn
+              turn: turn,
+              lobby: lobby
             }
           })
         })

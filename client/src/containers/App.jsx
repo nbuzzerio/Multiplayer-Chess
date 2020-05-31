@@ -80,8 +80,8 @@ const mapDispatchToProps = (dispatch) => {
       onTileClick: (tileProps, pieceLocation) => {
         dispatch(setClickedTile(tileProps, pieceLocation))
       },
-      onLiftPiece: (coord, piece, pieceColor, tileColor, location) => {
-        dispatch(setLiftedPiece(coord, piece, pieceColor, tileColor, location))
+      onLiftPiece: (coord, piece, pieceColor, tileColor, lobby, location) => {
+        dispatch(setLiftedPiece(coord, piece, pieceColor, tileColor, lobby, location))
       },
       setHeldPieceLocation: (location) => {
         dispatch(setHeldPieceLocation(location))

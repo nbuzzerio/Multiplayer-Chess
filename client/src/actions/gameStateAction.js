@@ -52,7 +52,7 @@ export function setNewOrContinueBoard(lobby, newGame) {
                         payload: false
                     })
                 } else {
-                    socket.on(`joinRoom-${lobby}`, (lobby) => {
+                    socket.on(`Room-${lobby}`, (lobby) => {
                         console.log('Welcome to room: ', lobby)
                     })
                     socket.emit('joinRoom', lobby)

@@ -10,6 +10,9 @@ const app = express();
 const http = require('http').createServer(app);
 //initilize a new instance of socket-io and pass in the http server
 const io = require('socket.io')(http);
+app.use(bodyParser.json());
+
+app.use(express.static('./client/dist'));
 
 //creates listener for user connecting and disconnection
 io.on('connection', (socket) => {
@@ -21,22 +24,19 @@ io.on('connection', (socket) => {
   });
   socket.on('action', (action) => {
     console.log("This is the state: ", action)
-    io.emit('action', {
+    const lobby = action.payload.lobby;
+    io.to(`Room-${lobby}`).emit('action', {
       type: action.type.slice(7),
       payload: action.payload
     });
-  }); //.to(lobby/server/)
-
+  });
+  debugger;
   socket.on('joinRoom', (lobby) => {
-    socket.join(`joinRoom-${lobby}`, () => {
+    socket.join(`Room-${lobby}`, () => {
       console.log('Whats in here:', socket.id);
-      io.to(`joinRoom-${lobby}`).emit(`joinRoom-${lobby}`, `The user ${socket.id} has joined the room.`)
+      io.to(`Room-${lobby}`).emit(`Room-${lobby}`, `The user ${socket.id} has joined the room.`)
     });
   });
-
-  app.use(bodyParser.json());
-
-  app.use(express.static('./client/dist'));
 
   app.post('/newGame', (req, res) => {
     console.log(req)

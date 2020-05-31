@@ -1,4 +1,4 @@
-export default function setLiftedPiece(coord, piece, pieceColor, tileColor, board, location) {
+export default function setLiftedPiece(coord, piece, pieceColor, tileColor, board, lobby, location) {
     var row = Number(coord[0]);
     var col = Number(coord[1]);
     board[row][col].tileColor = 'green';
@@ -23,7 +23,8 @@ export default function setLiftedPiece(coord, piece, pieceColor, tileColor, boar
         heldPieceLocation: {
           boardXratio: -1000,
           boardYratio: -1000
-        }
+        },
+        lobby: lobby
       }
     }
 }
