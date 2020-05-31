@@ -17,10 +17,18 @@ app.use(express.static('./client/dist'));
 //creates listener for user connecting and disconnection
 io.on('connection', (socket) => {
   console.log('Socket connected: ', socket.id);
-  io.emit('newConnection', socket.id + 'has connected to the game.')
-  socket.on('disconnect', () => {
-    console.log('user disconnected');
-    io.emit('newDisconnection', socket.id + 'has disconnected from the game.')
+  // io.emit('newConnection', socket.id + 'has connected to the game.')
+  socket.on('disconnecting', () => {
+    console.log('user disconnected: ', Object.keys(socket.rooms));
+    let lobby;
+    Object.keys(socket.rooms).forEach((s) => {
+      console.log(s.slice(0, 5))
+      if (s.slice(0, 5) === 'Room-') {
+        lobby = s
+      }
+    })
+
+    io.to(lobby).emit('newDisconnection', socket.name + ' has disconnected from the game.')
   });
   socket.on('action', (action) => {
     console.log("This is the state: ", action)
@@ -30,11 +38,23 @@ io.on('connection', (socket) => {
       payload: action.payload
     });
   });
-  debugger;
-  socket.on('joinRoom', (lobby) => {
+  socket.on('joinRoom', (lobby, name) => {
+    if (!socket.name) {
+      socket.name = name || 'Anonymous';
+    }
+
+    Object.keys(socket.rooms).forEach((s) => {
+      console.log(s.slice(0, 5))
+      if (s.slice(0, 5) === 'Room-') {
+        socket.leave(s)
+        io.to(s).emit('newDisconnection', `${socket.name} has left the room ${s}.`)
+      }
+    })
+
+
     socket.join(`Room-${lobby}`, () => {
       console.log('Whats in here:', socket.id);
-      io.to(`Room-${lobby}`).emit(`Room-${lobby}`, `The user ${socket.id} has joined the room.`)
+      io.to(`Room-${lobby}`).emit(`Room-${lobby}`, `${socket.name} has joined the room.`)
     });
   });
 

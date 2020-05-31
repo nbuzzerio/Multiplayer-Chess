@@ -3,11 +3,11 @@ const clientReducer = (state = {
     windowWidth: window.innerWidth,
     boardDimensions: {
         bottom: 0,
-        height: 0,
-        left: 0,
+        height: window.innerHeight*.64,
+        left: (window.innerWidth - window.innerHeight*.64)/2,
         right: 0,
-        top: 0,
-        width: 0,
+        top: 200, //not dynamic
+        width: window.innerHeight*.64,
         x: 0,
         y: 0
     }

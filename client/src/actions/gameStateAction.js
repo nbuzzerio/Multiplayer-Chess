@@ -53,9 +53,9 @@ export function setNewOrContinueBoard(lobby, newGame) {
                     })
                 } else {
                     socket.on(`Room-${lobby}`, (lobby) => {
-                        console.log('Welcome to room: ', lobby)
+                        console.log(lobby)
                     })
-                    socket.emit('joinRoom', lobby)
+                    socket.emit('joinRoom', lobby, name)
 
                     //lobby was free so newGame was created
                     store.dispatch(setBoard(lobby));

@@ -2,9 +2,9 @@ import store from '../store.js'
 
 export function setHeldPieceLocation(e) {
     
-    var board = store.getState().clientProps.boardDimensions;
-    var lobby = store.getState().boardProps.lobby;
-    console.log(lobby, 'afjlksd;jfkl;asdjfl;kadsjflk;asdjflk;asdjflk;adsj')
+    var state = store.getState()
+    var board = state.clientProps.boardDimensions;
+    var lobby = state.boardProps.lobby;
     //removes space as if board begins at top right corner of window
     var left = e.clientX - board.left;
     var top = e.clientY - board.top;

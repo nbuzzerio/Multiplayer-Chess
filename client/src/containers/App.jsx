@@ -15,16 +15,9 @@ import { setNewTextField } from '../actions/textFieldAction.js';
 class App extends React.Component {
 
   componentDidMount() {
-    console.log(this.props)
-
     window.addEventListener('resize', this.props.setWindowHeight);
     window.addEventListener('resize', this.props.setBoardDimensions);
-    //set it initially as well
-    this.props.setBoardDimensions();
-
-    console.log('after', this.props)
-
-
+    console.log(this.props)
   }
 
   render () {
@@ -37,7 +30,6 @@ class App extends React.Component {
       <button onClick={() => {this.props.onGameButtonClick(this.props.boardProps.textField, false)}}>Continue Game</button> 
     {/*I should abstract the textfield away from the board reducer later*/}
       <input type='text' name='lobby' placeholder='Room Name' value={this.props.boardProps.textField} onChange={(e) => {this.props.onTextFieldChange(e)}}></input>
-      <button style={{float: 'right'}} onClick={this.undo}>Undo Move</button>
       <br></br>
       <br></br>
       <hr></hr>
@@ -54,8 +46,9 @@ class App extends React.Component {
       this.props.clientProps.boardDimensions.height + this.props.clientProps.boardDimensions.top
     }px`,
     
-    boxSizing: 'boarder-box', position: 'absolute', pointerEvents: 'none'}}>{this.props.boardProps.heldPiece.piece}</div> 
-    </div>)
+  boxSizing: 'boarder-box', position: 'absolute', pointerEvents: 'none'}}>{this.props.boardProps.heldPiece.piece}</div> 
+    </div>
+    )
   }
 }
 
@@ -68,7 +61,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      setBoard: (lobby) => { //more like this
+      setBoard: (lobby) => {
         dispatch(setBoard(lobby))
       },
       setWindowHeight: (size) => {

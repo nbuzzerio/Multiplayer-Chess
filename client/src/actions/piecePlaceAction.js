@@ -78,7 +78,8 @@ export default function setPlacedPiece(coord, state, setHeldPieceLocation) {
               pieceColor: '',
               tileColor: ''
             },
-            turn: turn
+            turn: turn,
+            lobby: lobby
             }
           })
         })
