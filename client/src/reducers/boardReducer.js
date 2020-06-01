@@ -84,7 +84,6 @@ const newBoard = createBoard();
 
 const boardReducer = (state = {
     board: newBoard,
-    textField: '',
     lobby: '',
     holdingPiece: false,
     heldPiece: {
@@ -159,12 +158,6 @@ const boardReducer = (state = {
                 lobbyExists: action.payload
             };
             break;
-        case 'SET_TEXTFIELD':
-            state = {
-                ...state,
-                textField: action.payload
-            };
-            break;
         case 'SET_RESUME_GAME':
             state = {
                 ...state,
@@ -172,6 +165,12 @@ const boardReducer = (state = {
                 lobby: action.payload.lobby,
                 turn: action.payload.turn
             };
+            break;
+        case "SET_LEAVE":
+            state = {
+                ...state,
+                lobby: ''
+            }
             break;
     }
     return state;

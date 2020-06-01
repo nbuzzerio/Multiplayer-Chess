@@ -1,0 +1,50 @@
+import React from 'react';
+import styled from 'styled-components';
+import store from '../store.js'
+import Board from './Board.jsx';
+import leaveGame from '../actions/leaveAction.js';
+
+import { setClickedTile } from '../actions/clickTileAction.js';
+import { setHeldPieceLocation } from '../actions/heldPieceLocationAction.js';
+
+
+function GameSelected () {
+  
+  var props = store.getState();
+  console.log('props inside GameSelected: ', props )
+
+    return (
+      <div>
+          <h1>{ props.boardProps.lobbyTaken ? `Sorry ${props.clientProps.name} Lobby taken! Pick a new lobby to play a Chess Game`: (props.boardProps.lobby !== '' ? 'Chess Game in Room: ' + props.boardProps.lobby : `Welcome ${props.clientProps.name}! Please enter a room to play a Chess Game`)}</h1>
+          <hr></hr>
+          <br></br>
+          <button onClick={() => {store.dispatch(leaveGame())}}>Leave Game</button>
+          <br></br>
+          <br></br>
+          <hr></hr>
+          <h1>{props.boardProps.lobbyExists ? '' : 'Lobby does not exist please create a new game or resume a current lobby.'}</h1>
+          <br></br>
+
+            <Board />
+
+        <div id='heldPiece' style={{fontSize: `${window.innerHeight*.07}px`, color: props.boardProps.heldPiece.pieceColor, 
+        
+        left: `${props.boardProps.heldPieceLocation.boardXratio * 
+          props.clientProps.boardDimensions.width + props.clientProps.boardDimensions.left
+        }px`, 
+        
+        top: `${props.boardProps.heldPieceLocation.boardYratio * 
+          props.clientProps.boardDimensions.height + props.clientProps.boardDimensions.top
+        }px`,
+        
+      boxSizing: 'boarder-box', position: 'absolute', pointerEvents: 'none'}}>{props.boardProps.heldPiece.piece}</div> 
+    </div>     
+    )
+}
+
+export default GameSelected;
+
+
+
+
+    

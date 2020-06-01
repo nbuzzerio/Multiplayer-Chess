@@ -1,4 +1,6 @@
-export default function setLiftedPiece(coord, piece, pieceColor, tileColor, board, lobby, location) {
+import setHeldPieceLocation from './heldPieceLocationAction.js';
+
+export default function setLiftedPiece(coord, piece, pieceColor, tileColor, board, lobby) {
     var row = Number(coord[0]);
     var col = Number(coord[1]);
     board[row][col].tileColor = 'green';
@@ -8,7 +10,7 @@ export default function setLiftedPiece(coord, piece, pieceColor, tileColor, boar
     held.innerHTML = piece;
     held.style.color = pieceColor;
     
-    document.addEventListener('mousemove', location);
+    document.addEventListener('mousemove', setHeldPieceLocation);
 
     return {
       type: 'server/SET_LIFTED_PIECE',

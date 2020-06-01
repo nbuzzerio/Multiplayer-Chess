@@ -1,4 +1,4 @@
-export function setNewTextField(e) {
+export default function setNewTextField(e) {
     e.preventDefault();
     const textField = e.target.value;
     return {

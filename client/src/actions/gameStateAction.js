@@ -4,8 +4,7 @@ import { setBoard } from './boardAction.js';
 
 console.log('store in gamestate', store)
 
-export function setNewOrContinueBoard(lobby, newGame) {
-    
+export default function setNewOrContinueBoard(lobby, name, newGame) {
     //return a function with parameter dispatch for thunk to handle
     return function (dispatch) {
         var state = store.getState();

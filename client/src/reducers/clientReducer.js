@@ -10,7 +10,9 @@ const clientReducer = (state = {
         width: window.innerHeight*.64,
         x: 0,
         y: 0
-    }
+    },
+    textField: '',
+    name: ''
 }, action) => {
     switch (action.type) {
         case "SET_WINDOW":
@@ -26,6 +28,19 @@ const clientReducer = (state = {
                 boardDimensions: action.payload
             }
             break;
+            case 'SET_TEXTFIELD':
+                state = {
+                    ...state,
+                    textField: action.payload
+                };
+                break;
+            case "SET_NAME":
+                state = {
+                    ...state,
+                    name: action.payload,
+                    textField: ''
+                }
+                break;
     }
     return state;
 };

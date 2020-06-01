@@ -1,6 +1,8 @@
 import React from 'react';
 import Tile from './Tile.jsx';
 import styled from 'styled-components';
+import store from '../store.js'
+import { setClickedTile } from '../actions/clickTileAction.js';
 
 const StyledBoard = styled.div`
   border: ${props => props.windowHeight*.01}px solid tan;
@@ -16,43 +18,28 @@ const StyledSquares = styled.div`
   grid-template-rows: repeat(8, ${props => props.windowHeight*.08}px);
 `;
 
-function Board(props) {
-  const rows = props.board;  //figure out why there are 2 board keys to get to the array
+function Board() {
+  const props = store.getState();
+
+  const rows = props.boardProps.board;
+  console.log('props in board component: ', props)
   
   //going through matrix rows then through each row and grabbing tiles
-  var rowsList = rows.map((row, colIndex) => { 
-      return row.map((tile, rowIndex) => {
+  var tilesList = rows.map((row, rowIndex) => { 
+      return row.map((tile, colIndex) => {
         return (
-          <div className='rows' onClick={() => {props.onTileClick(tile, props.setHeldPieceLocation)}} key={rowIndex}>
-            <Tile tile={tile} holdingPiece={props.holdingPiece} heldPiece={props.heldPiece} turn={props.turn} lobby={props.lobby} key={rowIndex + '' + colIndex} windowHeight={props.windowHeight} onTileClick={props.onTileClick}/>
+          <div className='tile' onClick={() => {store.dispatch(setClickedTile(tile))}} key={rowIndex + '' + colIndex}>
+            <Tile tile={tile} holdingPiece={props.boardProps.holdingPiece} heldPiece={props.boardProps.heldPiece} turn={props.boardProps.turn} lobby={props.boardProps.lobby} key={rowIndex + '' + colIndex} windowHeight={props.clientProps.windowHeight} onTileClick={props.onTileClick}/>
           </div>
         )
       })
   })
-  var greeting = <div className='welcomeMsg'></div>
-  if (props.lobby === '') {
-    rowsList = <div></div> //removes board
-    greeting = 
-    <div className='welcomeMsg'>
-      <h1>To Start a Game Type the Name of your Lobby and Click New Game</h1>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <h1>To Continue a Game Type the Name of your Lobby and Click Continue Game</h1>
-    </div>
-  }
 
   return (
-    <StyledBoard windowHeight={props.windowHeight}>
+    <StyledBoard windowHeight={props.clientProps.windowHeight}>
       <div id='board'>
-        {greeting}
-        <StyledSquares windowHeight={props.windowHeight}>
-          {rowsList}
+        <StyledSquares windowHeight={props.clientProps.windowHeight}>
+          {tilesList}
         </StyledSquares>
       </div>
     </StyledBoard>

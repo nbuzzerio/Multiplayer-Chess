@@ -1,7 +1,6 @@
 import store from '../store.js'
 
-export function setHeldPieceLocation(e) {
-    
+function heldListener(e) {
     var state = store.getState()
     var board = state.clientProps.boardDimensions;
     var lobby = state.boardProps.lobby;
@@ -30,4 +29,8 @@ export function setHeldPieceLocation(e) {
     return {
         type:'NO NO_ACTION'
     }
+}
+
+export default function setHeldPieceLocation(e) {
+    store.dispatch(heldListener(e))
 }

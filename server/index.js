@@ -16,20 +16,29 @@ app.use(express.static('./client/dist'));
 
 //creates listener for user connecting and disconnection
 io.on('connection', (socket) => {
+
+  var handleRoom = () => {
+    return Object.keys(socket.rooms).forEach((s) => {
+      console.log(s.slice(0, 5))
+      if (s.slice(0, 5) === 'Room-') {
+        socket.leave(s)
+        io.to(s).emit('newDisconnection', `${socket.name} has left the room ${s}.`)
+      }
+    })
+  } 
+
+
   console.log('Socket connected: ', socket.id);
   // io.emit('newConnection', socket.id + 'has connected to the game.')
   socket.on('disconnecting', () => {
     console.log('user disconnected: ', Object.keys(socket.rooms));
-    let lobby;
-    Object.keys(socket.rooms).forEach((s) => {
-      console.log(s.slice(0, 5))
-      if (s.slice(0, 5) === 'Room-') {
-        lobby = s
-      }
-    })
-
-    io.to(lobby).emit('newDisconnection', socket.name + ' has disconnected from the game.')
+    handleRoom()
   });
+
+  socket.on('leaveGame', () => {
+    handleRoom()
+  })
+
   socket.on('action', (action) => {
     console.log("This is the state: ", action)
     const lobby = action.payload.lobby;
@@ -43,17 +52,7 @@ io.on('connection', (socket) => {
       socket.name = name || 'Anonymous';
     }
 
-    Object.keys(socket.rooms).forEach((s) => {
-      console.log(s.slice(0, 5))
-      if (s.slice(0, 5) === 'Room-') {
-        socket.leave(s)
-        io.to(s).emit('newDisconnection', `${socket.name} has left the room ${s}.`)
-      }
-    })
-
-
     socket.join(`Room-${lobby}`, () => {
-      console.log('Whats in here:', socket.id);
       io.to(`Room-${lobby}`).emit(`Room-${lobby}`, `${socket.name} has joined the room.`)
     });
   });
@@ -63,8 +62,7 @@ io.on('connection', (socket) => {
     var lobby = req.body.lobby;
     var turn = req.body.turn;
     var board = req.body.board
-    console.log('Am I even receiving anything?:', req.body.lobby)
-    
+
     ChessGame.create({lobby: lobby, board: board, turn: turn}, (err, doc) => {
       if (err) {
         console.log(err);
@@ -78,7 +76,6 @@ io.on('connection', (socket) => {
     
   app.post('/resumeGame', (req, res) => {
     var lobby = req.body.lobby;
-    console.log('trying to resume:', req.body.lobby)
     
     ChessGame.find( {lobby: lobby}, (err, doc) => {
       if (err) {
@@ -95,7 +92,6 @@ io.on('connection', (socket) => {
     var lobby = req.body.lobby;
     var turn = req.body.turn;
     var board = req.body.board
-    console.log('trying to update:', req.body.lobby)
 
     ChessGame.findOneAndUpdate( {lobby: lobby}, {board: board, turn: turn}, (err, doc) => {
       if (err) {

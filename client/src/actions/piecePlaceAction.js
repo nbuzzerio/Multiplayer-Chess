@@ -1,4 +1,6 @@
-export default function setPlacedPiece(coord, state, setHeldPieceLocation) {
+import setHeldPieceLocation from './heldPieceLocationAction.js';
+
+export default function setPlacedPiece(coord, state) {
 
   document.removeEventListener('mousemove', setHeldPieceLocation);
 
