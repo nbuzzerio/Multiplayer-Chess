@@ -2,6 +2,8 @@ import {createStore, combineReducers, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import boardReducer from './reducers/boardReducer.js';
 import clientReducer from './reducers/clientReducer.js';
+import chatReducer from './reducers/chatReducer.js';
+
 
 import createSocketIOMiddleware from 'redux-socket.io';
 import io from 'socket.io-client';
@@ -23,7 +25,8 @@ socket.on('joinRoom', (msg) => {
 export default createStore(
     combineReducers({
         boardProps: boardReducer,
-        clientProps: clientReducer     
+        clientProps: clientReducer,
+        chatProps: chatReducer        
     }), applyMiddleware(thunk, socketIoMiddleware)
 );
 

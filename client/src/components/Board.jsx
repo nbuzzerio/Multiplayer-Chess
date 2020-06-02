@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import store from '../store.js'
 import { setClickedTile } from '../actions/clickTileAction.js';
 
+
+
 const StyledBoard = styled.div`
   border: ${props => props.windowHeight*.01}px solid tan;
   height: ${props => props.windowHeight*.64}px;
@@ -43,6 +45,7 @@ function Board() {
         </StyledSquares>
       </div>
     </StyledBoard>
+    
   );
 }
 

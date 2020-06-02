@@ -15,6 +15,8 @@ import LandingPage from '../components/LandingPage.jsx';
 import NamedPlayer from '../components/NamedPlayer.jsx';
 import GameSelected from '../components/GameSelect.jsx';
 
+
+
 class App extends React.Component {
   componentDidMount() {
     window.addEventListener('resize', this.props.setWindowHeight);
@@ -43,7 +45,8 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     boardProps: state.boardProps,
-    clientProps: state.clientProps
+    clientProps: state.clientProps,
+    chatProps: state.chatProps
   };
 }
 
@@ -78,6 +81,12 @@ const mapDispatchToProps = (dispatch) => {
       },
       onTextFieldChange: (e) => {
         dispatch(setNewTextField(e))
+      },
+      onSendMessage: () => {
+        dispatch(sendMessage(name, chatTextField))
+      },
+      onChatTextFieldChange: (e) => {
+        dispatch(setNewChatTextField(e))
       }
   };
 }

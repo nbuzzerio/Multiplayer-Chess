@@ -2,11 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import store from '../store.js'
 import Board from './Board.jsx';
+import Chat from '../components/Chat.jsx';
 import leaveGame from '../actions/leaveAction.js';
 
-import { setClickedTile } from '../actions/clickTileAction.js';
-import { setHeldPieceLocation } from '../actions/heldPieceLocationAction.js';
-
+const StyledRoom = styled.div`
+  display: grid; 
+  grid-template-columns: 3fr 10fr 3fr;
+`;
 
 function GameSelected () {
   
@@ -25,7 +27,11 @@ function GameSelected () {
           <h1>{props.boardProps.lobbyExists ? '' : 'Lobby does not exist please create a new game or resume a current lobby.'}</h1>
           <br></br>
 
+          <StyledRoom>
+            <div></div>
             <Board />
+            <Chat />
+          </StyledRoom>
 
         <div id='heldPiece' style={{fontSize: `${window.innerHeight*.07}px`, color: props.boardProps.heldPiece.pieceColor, 
         
