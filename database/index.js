@@ -12,7 +12,8 @@ var chessSchema = new mongoose.Schema({
     lobby: {type: String,
     unique: true},
     board: Array,
-    turn: String
+    turn: String,
+    move: Object
 });
 
 var ChessGame = mongoose.model('ChessGame', chessSchema);

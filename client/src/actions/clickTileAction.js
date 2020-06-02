@@ -3,7 +3,9 @@ import setPlacedPiece from './piecePlaceAction';
 import setLiftedPiece from './liftPieceAction.js';
 
 export function setClickedTile(tileProps) {
-  var props = store.getState().boardProps;
+  var state = store.getState()
+  var props = state.boardProps;
+  var name = state.clientProps.name
   var coord = tileProps.coord;
   var piece = tileProps.piece;
   var pieceColor = tileProps.pieceColor;
@@ -13,9 +15,9 @@ export function setClickedTile(tileProps) {
     store.dispatch(setLiftedPiece(coord, piece, pieceColor, tileColor, props.board, props.lobby));
   }
   //if piece is currently being held
-  else if (props.holdingPiece && (tileProps.pieceColor !== props.heldPiece.pieceColor || coord === props.heldPiece.coord)) {
+  if (props.holdingPiece && (tileProps.pieceColor !== props.heldPiece.pieceColor || coord === props.heldPiece.coord)) {
     return function () {
-      store.dispatch(setPlacedPiece(coord, props));
+      store.dispatch(setPlacedPiece(coord, props, tileProps, name));
     }
   } else {
     return {

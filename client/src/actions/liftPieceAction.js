@@ -9,7 +9,7 @@ export default function setLiftedPiece(coord, piece, pieceColor, tileColor, boar
     const held = document.getElementById('heldPiece');
     held.innerHTML = piece;
     held.style.color = pieceColor;
-    
+
     document.addEventListener('mousemove', setHeldPieceLocation);
 
     return {

@@ -45,8 +45,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => {
   return {
     boardProps: state.boardProps,
-    clientProps: state.clientProps,
-    chatProps: state.chatProps
+    clientProps: state.clientProps
   };
 }
 

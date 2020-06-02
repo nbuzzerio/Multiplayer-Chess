@@ -29,8 +29,8 @@ function SendMessage() {
 
 return (
       <div id='sendMessage'>
-          <StyledSendButton windowHeight={props.clientProps.windowHeight} id='sendButton' onClick={() => {store.dispatch(sendMessage(props.clientProps.name, props.chatProps.chatTextField, props.boardProps.lobby))}}>Send</StyledSendButton>
-          <StyledMessageField windowHeight={props.clientProps.windowHeight} id='sendInput' type='text' name='Send' placeholder='message' value={props.chatProps.chatTextField} onChange={(e) => {store.dispatch(setNewChatTextField(e))}}></StyledMessageField>
+          <StyledSendButton windowHeight={props.clientProps.windowHeight} id='sendButton' onClick={() => {store.dispatch(sendMessage(props.clientProps.name, props.boardProps.chatTextField, props.boardProps.lobby))}}>Send</StyledSendButton>
+          <StyledMessageField windowHeight={props.clientProps.windowHeight} id='sendInput' type='text' name='Send' placeholder='message' value={props.boardProps.chatTextField} onChange={(e) => {store.dispatch(setNewChatTextField(e))}}></StyledMessageField>
       </div>
   );
 }

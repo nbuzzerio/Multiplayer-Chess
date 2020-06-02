@@ -91,6 +91,13 @@ const boardReducer = (state = {
     piece: '',
     pieceColor: ''
     },
+    move:{
+        attacker: '',
+        atkPiece: '',
+        atkFrom: '',
+        defPiece: '',
+        defFrom: ''
+    },
     heldPieceLocation: {
         boardXratio: -1,
         boardYratio: -1,
@@ -108,7 +115,11 @@ const boardReducer = (state = {
     turn: 'white',
     lobbyTaken: false,
     lobbyExists: true,
-    lastTurn: [] //not yet implemented
+    messages: [{
+        name: 'Chess',
+        message: 'Welcome to the Game!'
+    }],
+    chatTextField: '',
 }, action) => {
     switch (action.type) {
         case 'SET_BOARD':
@@ -137,12 +148,21 @@ const boardReducer = (state = {
             };
             break;
         case 'SET_PLACED_PIECE':
+                var msgs = state.messages.slice()
+            if (message) {
+                msgs.push({
+                    name: action.payload.message.name,
+                    message: action.payload.message.message
+                 })
+            }
             state = {
                 ...state,
                 board: action.payload.board,
                 holdingPiece: action.payload.holdingPiece, 
                 heldPiece: action.payload.heldPiece,
-                turn: action.payload.turn
+                turn: action.payload.turn,
+                move: action.payload.move,
+                messages: msgs,
             };
             break;
         case 'SET_LOBBY_TAKEN':
@@ -171,6 +191,45 @@ const boardReducer = (state = {
                 ...state,
                 lobby: ''
             }
+            break;
+        case "SET_MESSAGE":
+        var msgs = state.messages.slice()
+        msgs.push({
+            name: action.payload.message.name,
+            message: action.payload.message.message
+        })
+
+            state = {
+                ...state,
+                messages: msgs,
+                chatTextField: ''
+            }
+            break;
+        case 'SET_CHAT_TEXTFIELD':
+            state = {
+                ...state,
+                chatTextField: action.payload
+            };
+            break;
+////////////////////////////////
+        case "SET_MESSAGE":
+            var msgs = state.messages.slice()
+            msgs.push({
+                name: action.payload.message.name,
+                message: action.payload.message.message
+            })
+
+                state = {
+                    ...state,
+                    messages: msgs,
+                    chatTextField: ''
+                }
+                break;
+        case 'SET_CHAT_TEXTFIELD':
+            state = {
+                ...state,
+                chatTextField: action.payload
+            };
             break;
     }
     return state;

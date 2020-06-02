@@ -25,7 +25,7 @@ function Tile (props) {
         <div className='tile'>
           <StyledPiece color={props.tile.pieceColor} windowHeight={props.windowHeight}>
             <div className='Piece'>
-              {props.tile.piece}
+              {props.tile.piece || ''}
             </div>
           </StyledPiece>
         </div>
