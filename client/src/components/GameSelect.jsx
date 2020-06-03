@@ -13,7 +13,6 @@ const StyledRoom = styled.div`
 function GameSelected () {
   
   var props = store.getState();
-  console.log('props inside GameSelected: ', props )
 
     return (
       <div>

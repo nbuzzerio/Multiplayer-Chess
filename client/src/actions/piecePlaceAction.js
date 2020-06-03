@@ -1,5 +1,5 @@
 import setHeldPieceLocation from './heldPieceLocationAction.js';
-import translateCoords from './coordTranslater.js';
+import translateCoords from './boardLogic/coordTranslater.js';
 
 
 export default function setPlacedPiece(coord, state, tileProps, name) {

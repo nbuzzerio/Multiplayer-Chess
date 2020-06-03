@@ -2,12 +2,13 @@ export function setBoard(lobby) {
 
     function createBoard() {
         class Tile {
-            constructor(coord, piece, pieceColor, tileColor, validMove) {
+            constructor(coord, piece, pieceColor, tileColor, validMove, check) {
             this.coord = coord,
             this.piece = piece,
             this.pieceColor = pieceColor,
             this.tileColor = tileColor,
-            this.validMove = validMove
+            this.validMove = validMove,
+            this.check = check
             }
         };
     
@@ -28,12 +29,12 @@ export function setBoard(lobby) {
             board[i] = row().fill(null, 0, 8);
             for (var o = 0; o < board.length; o++) {
             board[i][o] = new Tile();
-    
             //set coord equal to the matrix coordinates
             board[i][o].coord = i + '' + o;
 
             //set validMove to false (will determine if boarder is highlighted)
             board[i][o].validMove = false;
+            board[i][o].check = false;
     
             //set tile color
             if ((i%2 === 0 &&  o%2 !== 0) || (i%2 !== 0 &&  o%2 === 0)) {

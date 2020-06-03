@@ -26,7 +26,6 @@ const StyledPiece = styled.div`
 
 
 function Tile (props) {
-  
     return (
       <StyledTile color={props.tile.tileColor} validMove={props.tile.validMove} coord={props.tile.coord} windowHeight={props.windowHeight}>
         <div className='tileSquare'>

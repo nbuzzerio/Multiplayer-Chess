@@ -1,11 +1,12 @@
 function createBoard() {
     class Tile {
-        constructor(coord, piece, pieceColor, tileColor, validMove) {
+        constructor(coord, piece, pieceColor, tileColor, validMove, check) {
         this.coord = coord,
         this.piece = piece,
         this.pieceColor = pieceColor,
         this.tileColor = tileColor,
-        this.validMove = validMove
+        this.validMove = validMove,
+        this.check = check
         }
     };
 
@@ -32,6 +33,7 @@ function createBoard() {
 
         //set validMove to false (will determine if boarder is highlighted)
         board[i][o].validMove = false;
+        board[i][o].check = false;
 
         //set tile color
         if ((i%2 === 0 &&  o%2 !== 0) || (i%2 !== 0 &&  o%2 === 0)) {
@@ -95,6 +97,7 @@ const boardReducer = (state = {
     piece: '',
     pieceColor: ''
     },
+    validMoves: [],
     move:{
         attacker: '',
         atkPiece: '',
@@ -215,7 +218,6 @@ const boardReducer = (state = {
                 chatTextField: action.payload
             };
             break;
-////////////////////////////////
         case "SET_MESSAGE":
             var msgs = state.messages.slice()
             msgs.push({
@@ -233,6 +235,13 @@ const boardReducer = (state = {
             state = {
                 ...state,
                 chatTextField: action.payload
+            };
+            break;
+        case 'SET_VALID_MOVES':
+            state = {
+                ...state,
+                board: action.payload.board,
+                validMoves: action.payload.validMoves
             };
             break;
     }

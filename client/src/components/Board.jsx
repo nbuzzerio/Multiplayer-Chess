@@ -3,8 +3,7 @@ import Tile from './Tile.jsx';
 import styled from 'styled-components';
 import store from '../store.js'
 import { setClickedTile } from '../actions/clickTileAction.js';
-
-
+import { setValidMoves } from '../actions/setValidMoves.js';
 
 const StyledBoard = styled.div`
   border: ${props => props.windowHeight*.01}px solid tan;
@@ -23,13 +22,15 @@ function Board() {
   const props = store.getState();
 
   const rows = props.boardProps.board;
-  console.log('props in board component: ', props)
   
   //going through matrix rows then through each row and grabbing tiles
   var tilesList = rows.map((row, rowIndex) => { 
       return row.map((tile, colIndex) => {
         return (
-          <div className='tile' onClick={() => {store.dispatch(setClickedTile(tile)); store.dispatch(setValidMoves(tile))}} key={rowIndex + '' + colIndex}>
+          <div className='tile' onClick={() => {
+            setValidMoves(tile);
+            store.dispatch(setClickedTile(tile)); 
+            }} key={rowIndex + '' + colIndex}>
             <Tile tile={tile} holdingPiece={props.boardProps.holdingPiece} heldPiece={props.boardProps.heldPiece} turn={props.boardProps.turn} lobby={props.boardProps.lobby} key={rowIndex + '' + colIndex} windowHeight={props.clientProps.windowHeight} onTileClick={props.onTileClick}/>
           </div>
         )
