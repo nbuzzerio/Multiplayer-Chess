@@ -10,7 +10,6 @@ const StyledBoard = styled.div`
   border: ${props => props.windowHeight*.01}px solid tan;
   height: ${props => props.windowHeight*.64}px;
   width: ${props => props.windowHeight*.64}px;
-  boxSizing: border-box;
   margin: auto;
 `;
 
@@ -30,7 +29,7 @@ function Board() {
   var tilesList = rows.map((row, rowIndex) => { 
       return row.map((tile, colIndex) => {
         return (
-          <div className='tile' onClick={() => {store.dispatch(setClickedTile(tile))}} key={rowIndex + '' + colIndex}>
+          <div className='tile' onClick={() => {store.dispatch(setClickedTile(tile)); store.dispatch(setValidMoves(tile))}} key={rowIndex + '' + colIndex}>
             <Tile tile={tile} holdingPiece={props.boardProps.holdingPiece} heldPiece={props.boardProps.heldPiece} turn={props.boardProps.turn} lobby={props.boardProps.lobby} key={rowIndex + '' + colIndex} windowHeight={props.clientProps.windowHeight} onTileClick={props.onTileClick}/>
           </div>
         )

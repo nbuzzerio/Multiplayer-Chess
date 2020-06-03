@@ -90,7 +90,6 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
             console.log('Error posting new game lobby: ', err)
         });         
       } else {
-        debugger
         var turn = turnContinue ? 'black' : 'white'
         var move = {
           attacker: turnContinue ? '' : 'black',
