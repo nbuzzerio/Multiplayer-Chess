@@ -35,7 +35,9 @@ export function setBoard(lobby) {
             //set validMove to false (will determine if boarder is highlighted)
             board[i][o].validMove = false;
             board[i][o].check = false;
-    
+            board[i][o].piece = '';
+            board[i][o].pieceColor = '';
+            
             //set tile color
             if ((i%2 === 0 &&  o%2 !== 0) || (i%2 !== 0 &&  o%2 === 0)) {
                 board[i][o].tileColor = '#8B4513'; //brown
@@ -51,6 +53,11 @@ export function setBoard(lobby) {
             if (i === 6) {
                 board[i][o].piece = 'P'
                 board[i][o].pieceColor = 'white'
+            }
+
+            //set enPassant to false for rows 3 and 4
+            if (i === 3 || i === 4) {
+                board[i][o].enPassant = false;
             }
     
             //set major pieces and teams

@@ -16,6 +16,12 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
       var row = Number(coord[0]);
       var col = Number(coord[1]);
       var board = state.board;
+
+      //Promote pawn to queen
+      if (state.heldPiece.piece === 'P' && (row === 0 || row === 7) ) { debugger
+        state.heldPiece.piece = 'Q'
+      }
+
       //To keep track of captured pieces we'll have to log these spaces current values first
       board[row][col].piece = state.heldPiece.piece;
       board[row][col].pieceColor = state.heldPiece.pieceColor;
@@ -23,7 +29,7 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
       var lastCol = Number(state.heldPiece.coord[1])
       var turnContinue = false;
       const held = document.getElementById('heldPiece');
-      held.innerHTML = '';
+      held.innerHTML = '';      
 
         //check if Piece is placed back where it was meaning the turn continues
         if (lastRow === row && lastCol === col) {
@@ -36,7 +42,7 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
         }
         
       var lobby = state.lobby;
-      /////////////////////////////////
+
         if (state.turn === 'white') {
         var turn = turnContinue ? 'white' : 'black'
         var move = {
