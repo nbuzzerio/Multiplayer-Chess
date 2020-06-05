@@ -45,10 +45,12 @@ export function setClickedTile(tileProps) {
       if (props.heldPiece.pieceColor === 'white' && coord[0] === '2' && props.board[row+1][col].enPassant) {
         props.board[row+1][col].enPassant = false;
         props.board[row+1][col].piece = '';
+        props.board[row+1][col].pieceColor = '';
       }
       if (props.heldPiece.pieceColor === 'black' && coord[0] === '5' && props.board[row-1][col].enPassant) {
         props.board[row-1][col].enPassant = false;
         props.board[row-1][col].piece = '';
+        props.board[row-1][col].pieceColor = '';
       }
     }
 

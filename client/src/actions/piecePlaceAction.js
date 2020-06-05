@@ -18,7 +18,7 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
       var board = state.board;
 
       //Promote pawn to queen
-      if (state.heldPiece.piece === 'P' && (row === 0 || row === 7) ) { debugger
+      if (state.heldPiece.piece === 'P' && (row === 0 || row === 7) ) {
         state.heldPiece.piece = 'Q'
       }
 
