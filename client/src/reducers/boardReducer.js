@@ -27,7 +27,6 @@ function createBoard() {
         board[i] = row().fill(null, 0, 8);
         for (var o = 0; o < board.length; o++) {
         board[i][o] = new Tile();
-
         //set coord equal to the matrix coordinates
         board[i][o].coord = i + '' + o;
 
@@ -69,9 +68,9 @@ function createBoard() {
             } else if (o === 2 || o === 5) {
             board[i][o].piece = 'B'
             } else if (o === 3) {
-            board[i][o].piece = 'K'
-            } else if (o === 4) {
             board[i][o].piece = 'Q'
+            } else if (o === 4) {
+            board[i][o].piece = 'K'
             }
         }
 
@@ -84,9 +83,9 @@ function createBoard() {
             } else if (o === 2 || o === 5) {
             board[i][o].piece = 'B'
             } else if (o === 3) {
-            board[i][o].piece = 'K'
-            } else if (o === 4) {
             board[i][o].piece = 'Q'
+            } else if (o === 4) {
+            board[i][o].piece = 'K'
             }
         }
         }

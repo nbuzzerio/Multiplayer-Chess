@@ -35,11 +35,11 @@ function GameSelected () {
         <div id='heldPiece' style={{fontSize: `${window.innerHeight*.07}px`, color: props.boardProps.heldPiece.pieceColor, 
         
         left: `${props.boardProps.heldPieceLocation.boardXratio * 
-          props.clientProps.boardDimensions.width + props.clientProps.boardDimensions.left
+          props.clientProps.boardDimensions.width + props.clientProps.boardDimensions.left - props.clientProps.windowHeight*.02
         }px`, 
         
         top: `${props.boardProps.heldPieceLocation.boardYratio * 
-          props.clientProps.boardDimensions.height + props.clientProps.boardDimensions.top
+          props.clientProps.boardDimensions.height + props.clientProps.boardDimensions.top - props.clientProps.windowHeight*.04
         }px`,
         
       boxSizing: 'boarder-box', position: 'absolute', pointerEvents: 'none'}}>{props.boardProps.heldPiece.piece}</div> 

@@ -1,6 +1,7 @@
 import store from '../store.js';
 import { socket } from '../store.js';
 import { setBoard } from './boardAction.js';
+import socketMessage from './socketMessage.js';
 
 export default function setNewOrContinueBoard(lobby, name, newGame) {
     //return a function with parameter dispatch for thunk to handle
@@ -25,6 +26,11 @@ export default function setNewOrContinueBoard(lobby, name, newGame) {
                         payload: true
                     })
                 } else {
+                    socket.on(`Room-${lobby}`, (msg) => {
+                        store.dispatch(socketMessage('Chess', msg))
+                    })
+                    socket.emit('joinRoom', lobby, name)
+
                     //lobby was free so newGame was created
                     store.dispatch(setBoard(lobby));
                 }
@@ -49,8 +55,8 @@ export default function setNewOrContinueBoard(lobby, name, newGame) {
                         payload: false
                     })
                 } else {
-                    socket.on(`Room-${lobby}`, (lobby) => {
-                        console.log(lobby)
+                    socket.on(`Room-${lobby}`, (msg) => {
+                        store.dispatch(socketMessage('Chess', msg));
                     })
                     socket.emit('joinRoom', lobby, name)
 
