@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
 
   var handleRoom = () => {
     return Object.keys(socket.rooms).forEach((s) => {
-      console.log(s.slice(0, 5))
+      // console.log(s.slice(0, 5))
       if (s.slice(0, 5) === 'Room-') {
         socket.leave(s)
         io.to(s).emit('newDisconnection', `${socket.name} has left the room ${s}.`)
@@ -28,10 +28,10 @@ io.on('connection', (socket) => {
   } 
 
 
-  console.log('Socket connected: ', socket.id);
+  // console.log('Socket connected: ', socket.id);
   // io.emit('newConnection', socket.id + 'has connected to the game.')
   socket.on('disconnecting', () => {
-    console.log('user disconnected: ', Object.keys(socket.rooms));
+    // console.log('user disconnected: ', Object.keys(socket.rooms));
     handleRoom()
   });
 
@@ -40,7 +40,7 @@ io.on('connection', (socket) => {
   })
 
   socket.on('action', (action) => {
-    console.log("This is the state: ", action)
+    // console.log("This is the state: ", action)
     const lobby = action.payload.lobby;
     io.to(`Room-${lobby}`).emit('action', {
       type: action.type.slice(7),
@@ -58,7 +58,7 @@ io.on('connection', (socket) => {
   });
 
   app.post('/newGame', (req, res) => {
-    console.log(req)
+    // console.log(req)
     var lobby = req.body.lobby;
     var turn = req.body.turn;
     var board = req.body.board
@@ -66,7 +66,7 @@ io.on('connection', (socket) => {
     ChessGame.create({lobby: lobby, board: board, turn: turn}, (err, doc) => {
       if (err) {
         console.log(err);
-        console.log({error: 'lobby already created'});
+        // console.log({error: 'lobby already created'});
         res.send(JSON.stringify({error: 'Sorry, lobby already created'}))
       } else {
         res.send(JSON.stringify(doc));
@@ -82,7 +82,7 @@ io.on('connection', (socket) => {
         console.log(err);
         res.send(JSON.stringify({error: 'Sorry, save game does not exist'}))
       } else {
-        console.log('Is a doc found? Here: ', doc)
+        // console.log('Is a doc found? Here: ', doc)
         res.send(JSON.stringify(doc));
       }
     })
@@ -96,7 +96,7 @@ io.on('connection', (socket) => {
     ChessGame.findOneAndUpdate( {lobby: lobby}, {board: board, turn: turn}, (err, doc) => {
       if (err) {
         console.log(err);
-        console.log({error: 'Sorry could not update'});
+        // console.log({error: 'Sorry could not update'});
         res.send(JSON.stringify({error: 'Sorry, could not save game update'}))
       } else {
         res.send(JSON.stringify(doc));
@@ -105,6 +105,6 @@ io.on('connection', (socket) => {
   });
 });
   
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 http.listen(port, () => console.log(`The server is Running on port ${port}!`));
