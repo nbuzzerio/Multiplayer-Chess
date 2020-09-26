@@ -53,7 +53,7 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
           defFrom: turnContinue ? '' : defender.coord,
         }
         //create newGame if lobby does not exist
-        fetch('/updateGame', {
+        fetch('/chess/updateGame', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
@@ -104,7 +104,7 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
           defPiece: turnContinue ? '' : defender.piece,
           defFrom: turnContinue ? '' : defender.coord
         }
-        fetch('/updateGame', {
+        fetch('/chess/updateGame', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json',
