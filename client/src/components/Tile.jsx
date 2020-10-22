@@ -24,14 +24,56 @@ const StyledPiece = styled.div`
   overflow: hidden;
 `
 
+const StyledPieceImg = styled.div`
+  min-width: ${props => props.windowHeight*.08}px;
+  max-width: ${props => props.windowHeight*.08}px;
+  min-height: ${props => props.windowHeight*.08}px;
+  max-height: ${props => props.windowHeight*.08}px;
+  background-image: url(https://multiplayer-chess.s3.amazonaws.com/${props => props.piece}.png);
+  background-size: contain;
+`
 
 function Tile (props) {
+
+    let pieceURL = 'Empty';
+    let color;
+    
+    switch (props.tile.pieceColor) {
+      case 'black':
+        color = 'Black';
+        break;
+      case 'white':
+        color = 'White';
+        break;
+    }
+
+    switch (props.tile.piece) {
+      case 'K':
+        pieceURL = color + 'King';
+        break;
+      case 'Q':
+        pieceURL = color + 'Queen';
+        break;
+      case 'B':
+        pieceURL = color + 'Bishop';
+        break;
+      case 'H':
+        pieceURL = color + 'Knight';
+        break;
+      case 'R':
+        pieceURL = color + 'Rook';
+        break;
+      case 'P':
+        pieceURL = color + 'Pawn';
+        break;
+    }
+
     return (
       <StyledTile color={props.tile.tileColor} validMove={props.tile.validMove} coord={props.tile.coord} windowHeight={props.windowHeight}>
         <div className='tileSquare'>
           <StyledPiece color={props.tile.pieceColor} windowHeight={props.windowHeight}>
             <div className='Piece'>
-              {props.tile.piece || ''}
+              <StyledPieceImg windowHeight={props.windowHeight} piece={pieceURL}></StyledPieceImg>
             </div>
           </StyledPiece>
         </div>

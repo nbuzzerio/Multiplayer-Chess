@@ -7,7 +7,6 @@ import setNewOrContinueBoard from '../actions/gameStateAction.js';
 
 function NamedPlayer () {
     var props = store.getState();
-    console.log('props inside Named Player: ', props)
   
     return (
         <div>
