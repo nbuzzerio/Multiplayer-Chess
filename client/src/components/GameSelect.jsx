@@ -10,61 +10,28 @@ const StyledRoom = styled.div`
   grid-template-columns: 3fr 10fr 3fr;
 `;
 
-const StyledHeldPieceImg = styled.div`
-  width: ${props => props.windowHeight*.08}px;
-  height: ${props => props.windowHeight*.08}px;
-  background-image: url(https://multiplayer-chess.s3.amazonaws.com/${props => props.piece}.png);
-  background-size: contain;
-  fontSize: ${props => props.windowHeight*.07}px;
-  color: props.boardProps.heldPiece.pieceColor;
-  left: ${props => props.left}px;
-  top: ${props => props.top}px;
-  boxSizing: 'boarder-box';
-  position: 'absolute';
-  pointerEvents: 'none';
-`;
+// const StyledHeldPieceImg = styled.div`
+//   width: ${props => props.windowHeight*.08}px;
+//   height: ${props => props.windowHeight*.08}px;
+  
+//   backgroundSize: contain;
+//   fontSize: ${props => props.windowHeight*.07}px;
+//   color: props.boardProps.heldPiece.pieceColor;
+//   left: ${props => props.left}px;
+//   top: ${props => props.top}px;
+//   boxSizing: 'boarder-box';
+//   position: 'absolute';
+//   pointerEvents: 'none';
+// `;
 
 function GameSelected () {
 
   var props = store.getState();
 
-  let pieceURL = 'Empty';
-  let color;
-
   let left = props.boardProps.heldPieceLocation.boardXratio * 
   props.clientProps.boardDimensions.width + props.clientProps.boardDimensions.left - props.clientProps.windowHeight*.02;
   let top = props.boardProps.heldPieceLocation.boardYratio * 
   props.clientProps.boardDimensions.height + props.clientProps.boardDimensions.top - props.clientProps.windowHeight*.04;
-  
-  switch (props.boardProps.heldPiece.pieceColor) {
-    case 'black':
-      color = 'Black';
-      break;
-    case 'white':
-      color = 'White';
-      break;
-  }
-
-  switch (props.boardProps.heldPiece.piece) {
-    case 'K':
-      pieceURL = color + 'King';
-      break;
-    case 'Q':
-      pieceURL = color + 'Queen';
-      break;
-    case 'B':
-      pieceURL = color + 'Bishop';
-      break;
-    case 'H':
-      pieceURL = color + 'Knight';
-      break;
-    case 'R':
-      pieceURL = color + 'Rook';
-      break;
-    case 'P':
-      pieceURL = color + 'Pawn';
-      break;
-  }
 
     return (
       <div>
@@ -84,7 +51,21 @@ function GameSelected () {
             <Chat />
           </StyledRoom>
 
-          <StyledHeldPieceImg id='heldPiece' windowHeight={props.windowHeight} left={left} top={top} color={props.boardProps.heldPiece.pieceColor} piece={pieceURL}></StyledHeldPieceImg> 
+          {/* <StyledHeldPieceImg id='heldPiece' windowHeight={props.windowHeight} left={left} top={top} color={props.boardProps.heldPiece.pieceColor} piece={props.boardProps.heldPiece.pieceURL}></StyledHeldPieceImg> */}
+          <div id='heldPiece' style={{
+            backgroundImage: `url(https://multiplayer-chess.s3.amazonaws.com/${props.boardProps.heldPiece.pieceURL}.png)`,
+            width: `${props.windowHeight*.08}px`,
+            height: `${props.windowHeight*.08}px`,
+            backgroundSize: 'contain',
+            fontSize: `${props.windowHeight*.07}px`,
+            color: `${props.boardProps.heldPiece.pieceColor}`,
+            left: `${left}px`,
+            top: `${top}px`,
+            boxSizing: 'boarder-box',
+            position: 'absolute',
+            pointerEvents: 'none'
+          }}>
+          </div> 
     </div>     
     )
 }

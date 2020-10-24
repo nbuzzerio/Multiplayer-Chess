@@ -29,8 +29,7 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
       var lastCol = Number(state.heldPiece.coord[1])
       var turnContinue = false;
       const held = document.getElementById('heldPiece');
-      held.style.backgroundImage = 'url(https://multiplayer-chess.s3.amazonaws.com/Empty.png)';    
-
+      held.style.backgroundImage = 'url(https://multiplayer-chess.s3.amazonaws.com/Empty.png)';
         //check if Piece is placed back where it was meaning the turn continues
         if (lastRow === row && lastCol === col) {
           turnContinue = true;
@@ -79,6 +78,7 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
               heldPiece: {
                 coord: '',
                 piece: '',
+                pieceURL: 'Empty',
                 pieceColor: '',
                 tileColor: '',
               },
@@ -130,6 +130,7 @@ export default function setPlacedPiece(coord, state, tileProps, name) {
               heldPiece: {
                 coord: '',
                 piece: '',
+                pieceURL: 'Empty',
                 pieceColor: '',
                 tileColor: '',
               },

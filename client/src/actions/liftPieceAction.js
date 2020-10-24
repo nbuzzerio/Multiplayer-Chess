@@ -63,6 +63,7 @@ export default function setLiftedPiece(coord, piece, pieceColor, tileColor, boar
         heldPiece: {
           coord: coord,
           piece: piece,
+          pieceURL: pieceURL,
           pieceColor: pieceColor,
           tileColor: tileColor
         },

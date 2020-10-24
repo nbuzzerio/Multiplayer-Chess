@@ -101,6 +101,7 @@ const boardReducer = (state = {
     heldPiece: {
     coord: '',
     piece: '',
+    pieceURL: 'Empty',
     pieceColor: ''
     },
     validMoves: [],
