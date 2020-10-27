@@ -43,28 +43,28 @@ function Tile (props) {
         color = 'Black';
         break;
       case 'white':
-        color = 'White';
+        color = 'Ivory';
         break;
     }
 
     switch (props.tile.piece) {
       case 'K':
-        pieceURL = color + 'King';
+        pieceURL = color + 'KingS';
         break;
       case 'Q':
-        pieceURL = color + 'Queen';
+        pieceURL = color + 'QueenS';
         break;
       case 'B':
-        pieceURL = color + 'Bishop';
+        pieceURL = color + 'BishopS';
         break;
       case 'H':
-        pieceURL = color + 'Knight';
+        pieceURL = color + 'KnightS';
         break;
       case 'R':
-        pieceURL = color + 'Rook';
+        pieceURL = color + 'RookS';
         break;
       case 'P':
-        pieceURL = color + 'Pawn';
+        pieceURL = color + 'PawnS';
         break;
     }
 

@@ -6,7 +6,9 @@ import { setClickedTile } from '../actions/clickTileAction.js';
 import { setValidMoves } from '../actions/setValidMoves.js';
 
 const StyledBoard = styled.div`
-  border: ${props => props.windowHeight*.01}px solid tan;
+  border: ${props => props.windowHeight*.04}px solid tan;
+  border-radius: 3%;
+  box-shadow: 17px -6px 85px 11px #000;
   height: ${props => props.windowHeight*.64}px;
   width: ${props => props.windowHeight*.64}px;
   margin: auto;

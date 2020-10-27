@@ -7,7 +7,9 @@ import store from '../store.js'
 const StyledChatBox = styled.div`
   display: grid;
   grid-template-rows: 19fr 1fr;
-  border: ${props => props.windowHeight*.01}px solid blue;
+  border-radius: 2%;
+  background: ghostwhite;
+  border: ${props => props.windowHeight*.01}px solid black;
   height: ${props => props.windowHeight*.60}px;
   width: ${props => props.windowHeight*.32}px;
   margin: auto;

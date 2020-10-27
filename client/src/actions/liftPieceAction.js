@@ -17,7 +17,7 @@ export default function setLiftedPiece(coord, piece, pieceColor, tileColor, boar
         color = 'Black';
         break;
       case 'white':
-        color = 'White';
+        color = 'Ivory';
         break;
     }
   
