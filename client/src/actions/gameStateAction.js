@@ -10,7 +10,7 @@ export default function setNewOrContinueBoard(lobby, name, newGame) {
 
         if (newGame) {
             //create newGame if lobby does not exist
-            fetch('/chess/newGame', {
+            fetch(`${window.location.origin}/newGame`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -40,7 +40,7 @@ export default function setNewOrContinueBoard(lobby, name, newGame) {
             });         
         } else {
             //fetch board state by lobby
-            fetch('/chess/resumeGame', {
+            fetch(`${window.location.origin}/resumeGame`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

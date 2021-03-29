@@ -6,8 +6,8 @@ import clientReducer from './reducers/clientReducer.js';
 
 import createSocketIOMiddleware from 'redux-socket.io';
 import io from 'socket.io-client';
-export const socket = io('https://nickbuzzerio.com/');
-const socketIoMiddleware = createSocketIOMiddleware(socket, "server/");
+export const socket = io(window.location.href);
+const socketIoMiddleware = createSocketIOMiddleware(socket, 'server/');
 
 socket.on('newConnection', (msg) => {
     console.log(msg)
