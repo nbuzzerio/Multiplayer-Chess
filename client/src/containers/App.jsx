@@ -1,54 +1,50 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
-import { setWindowHeight } from '../actions/windowAction.js';
-import { setBoardDimensions } from '../actions/boardDimensionsAction.js';
+import { setwindowWidth } from "../actions/windowAction.js";
+import { setBoardDimensions } from "../actions/boardDimensionsAction.js";
 
-import LandingPage from '../components/LandingPage.jsx';
-import NamedPlayer from '../components/NamedPlayer.jsx';
-import GameSelected from '../components/GameSelect.jsx';
+import LandingPage from "../components/LandingPage.jsx";
+import NamedPlayer from "../components/NamedPlayer.jsx";
+import GameSelected from "../components/GameSelect.jsx";
 
 class App extends React.Component {
   componentDidMount() {
-    window.addEventListener('resize', this.props.setWindowHeight);
-    window.addEventListener('resize', this.props.setBoardDimensions);
+    window.addEventListener("resize", this.props.setwindowWidth);
+    window.addEventListener("resize", this.props.setBoardDimensions);
   }
 
-  render () {
+  render() {
     var page;
-      if (this.props.clientProps.name === '') {
-        page = <LandingPage />
+    if (this.props.clientProps.name === "") {
+      page = <LandingPage />;
+    } else {
+      if (this.props.boardProps.lobby === "") {
+        page = <NamedPlayer />;
       } else {
-        if (this.props.boardProps.lobby === '') {
-          page = <NamedPlayer />
-        } else {
-          page = <GameSelected />
-        }
+        page = <GameSelected />;
       }
-    return (
-      <div>
-        {page}
-      </div>
-    )
+    }
+    return <div>{page}</div>;
   }
 }
 
 const mapStateToProps = (state) => {
   return {
     boardProps: state.boardProps,
-    clientProps: state.clientProps
+    clientProps: state.clientProps,
   };
-}
+};
 
 const mapDispatchToProps = (dispatch) => {
   return {
-      setWindowHeight: (size) => {
-        dispatch(setWindowHeight(size))
-      },
-      setBoardDimensions: () => {
-        dispatch(setBoardDimensions())
-      },
+    setwindowWidth: (size) => {
+      dispatch(setwindowWidth(size));
+    },
+    setBoardDimensions: () => {
+      dispatch(setBoardDimensions());
+    },
   };
-}
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App);

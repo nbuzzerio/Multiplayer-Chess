@@ -33,14 +33,14 @@
     "express": "^4.17.1",
     "jquery": "^3.5.1",
     "mongoose": "^5.9.13",
-    "nodemon": "^2.0.3",
+    "nodemon": "^2.0.19",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-socket.io": "^1.4.0",
     "redux-thunk": "^2.3.0",
-    "socket.io": "^2.3.0",
+    "socket.io": "^2.5.0",
     "styled-components": "^5.1.0"
   }
 }
