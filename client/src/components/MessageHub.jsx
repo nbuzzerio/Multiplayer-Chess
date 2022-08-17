@@ -4,10 +4,9 @@ import Message from "./Message.jsx";
 import store from "../store.js";
 
 const StyledMessageHub = styled.div`
-  overflow: auto;
-  min-height: ${(props) => props.windowWidth * 0.57}px;
   max-height: ${(props) => props.windowWidth * 0.57}px;
-  padding: 0 10px;
+  overflow: auto;
+  padding: 0;
   cursor: pointer;
 `;
 
@@ -18,14 +17,14 @@ function MessageHub() {
     return (
       <Message
         message={message}
-        windowWidth={props.clientProps.windowWidth}
+        windowWidth={Math.min(props.clientProps.windowWidth, props.clientProps.windowHeight)}
         key={messageIndex}
       />
     );
   });
 
   return (
-    <StyledMessageHub windowWidth={props.clientProps.windowWidth} onClick={() => {document.querySelector('#chat-wrapper').classList.toggle('clicked')}}>
+    <StyledMessageHub windowWidth={Math.min(props.clientProps.windowWidth, props.clientProps.windowHeight)} onClick={() => {document.querySelector('#chat-wrapper').classList.toggle('clicked')}}>
       <div id="messages">{messageList}</div>
     </StyledMessageHub>
   );

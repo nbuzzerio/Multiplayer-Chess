@@ -28,9 +28,11 @@ const StyledLeaveBtn = styled.button`
 const StyledLChatWrapper = styled.div`
   position: absolute;
   top: 50%;
-  right: -45%;
+  left: 97%;
   transform: translate(0%, -50%);
   transition: transform .5s ease-out;
+  height: ${(props) => props.windowWidth * 0.64}px;
+  max-height: ${(props) => props.windowWidth * 0.64}px;
 
   &.clicked {
     transform: translate(-75%, -50%);
@@ -79,7 +81,7 @@ function GameSelected() {
 
       <StyledRoom>
         <Board />
-        <StyledLChatWrapper id="chat-wrapper">
+        <StyledLChatWrapper id="chat-wrapper" windowWidth={Math.min(props.clientProps.windowWidth, props.clientProps.windowHeight)}>
           <Chat />
         </StyledLChatWrapper>
       </StyledRoom>

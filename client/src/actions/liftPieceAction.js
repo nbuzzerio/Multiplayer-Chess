@@ -53,8 +53,8 @@ export default function setLiftedPiece(
 
   held.style.color = pieceColor;
   held.style.backgroundImage = `url(https://multiplayer-chess.s3.amazonaws.com/${pieceURL}.png)`;
-  held.style.width = `${props.clientProps.windowWidth * 0.08}px`;
-  held.style.height = `${props.clientProps.windowWidth * 0.08}px`;
+  held.style.width = `${Math.min(props.clientProps.windowWidth, props.clientProps.windowHeight) * 0.08}px`;
+  held.style.height = `${Math.min(props.clientProps.windowWidth, props.clientProps.windowHeight) * 0.08}px`;
   held.style.backgroundSize = "contain";
   held.style.boxSizing = "boarder-box";
   held.style.position = "absolute";

@@ -26,7 +26,7 @@ const StyledHeader = styled.h1`
   font-size: 200px;
   text-align: center;
   font-family: fantasy;
-  background-image: url(/images/chess-pieces.jpg);
+  background-image: url(https://multiplayer-chess.s3.amazonaws.com/chess-pieces.jpg);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;

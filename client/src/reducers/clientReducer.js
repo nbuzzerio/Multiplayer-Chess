@@ -1,6 +1,6 @@
 const clientReducer = (
   state = {
-    windowWidth: window.innerHeight,
+    windowHeight: window.innerHeight,
     windowWidth: window.innerWidth,
     boardDimensions: {
       bottom: 0,
@@ -21,7 +21,7 @@ const clientReducer = (
     case "SET_WINDOW":
       state = {
         ...state,
-        windowWidth: action.payload.height,
+        windowHeight: action.payload.height,
         windowWidth: action.payload.width,
       };
       break;

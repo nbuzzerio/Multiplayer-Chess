@@ -9,7 +9,9 @@ const ChessGame = require('../database/index.js').ChessGame
 const app = express();
 const http = require('http').createServer(app);
 //initilize a new instance of socket-io and pass in the http server
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+  path: "/chess-socket/"
+});
 app.use(bodyParser.json());
 
 app.use(express.static('./client/dist'));

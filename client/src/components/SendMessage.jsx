@@ -19,6 +19,7 @@ const StyledSendButton = styled.button`
   user-select: none;
   display: flex;
   justify-content: space-evenly;
+  cursor: pointer;
 `;
 
 const StyledMessageField = styled.input`
@@ -36,10 +37,16 @@ function SendMessage() {
   return (
     <StyledSendMessage
       id="sendMessage"
-      windowWidth={props.clientProps.windowWidth}
+      windowWidth={Math.min(
+        props.clientProps.windowWidth,
+        props.clientProps.windowHeight
+      )}
     >
       <StyledSendButton
-        windowWidth={props.clientProps.windowWidth}
+        windowWidth={Math.min(
+          props.clientProps.windowWidth,
+          props.clientProps.windowHeight
+        )}
         id="sendButton"
         onClick={() => {
           store.dispatch(
@@ -54,7 +61,10 @@ function SendMessage() {
         Send
       </StyledSendButton>
       <StyledMessageField
-        windowWidth={props.clientProps.windowWidth}
+        windowWidth={Math.min(
+          props.clientProps.windowWidth,
+          props.clientProps.windowHeight
+        )}
         id="sendInput"
         type="text"
         name="Send"
@@ -62,6 +72,16 @@ function SendMessage() {
         value={props.boardProps.chatTextField}
         onChange={(e) => {
           store.dispatch(setNewChatTextField(e));
+        }}
+        onKeyUp={(e) => {
+          if (e.key === "Enter")
+            store.dispatch(
+              sendMessage(
+                props.clientProps.name,
+                props.boardProps.chatTextField,
+                props.boardProps.lobby
+              )
+            );
         }}
       ></StyledMessageField>
     </StyledSendMessage>

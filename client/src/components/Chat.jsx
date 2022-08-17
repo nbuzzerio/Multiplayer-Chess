@@ -15,6 +15,7 @@ const StyledChatBox = styled.div`
   margin: auto;
   position: relative;
   color: white;
+  position: relative;
 `;
 
 const StyledBlur = styled.div`
@@ -32,11 +33,10 @@ function Chat() {
   const props = store.getState();
 
   return (
-    <StyledChatBox windowWidth={props.clientProps.windowWidth}>
-      <div id="chat">
+    <StyledChatBox windowWidth={Math.min(props.clientProps.windowWidth, props.clientProps.windowHeight)}>
+
         <MessageHub />
         <SendMessage />
-      </div>
       <StyledBlur />
     </StyledChatBox>
   );

@@ -5,8 +5,14 @@ import clientReducer from './reducers/clientReducer.js';
 
 
 import createSocketIOMiddleware from 'redux-socket.io';
-import io from 'socket.io-client';
-export const socket = io(window.location.href);
+import {Manager} from 'socket.io-client';
+
+const manager = new Manager(window.location.origin, {
+    path: "/chess-socket/"
+});
+
+export const socket = manager.socket("/", {})
+console.log('socket: ', socket)
 const socketIoMiddleware = createSocketIOMiddleware(socket, 'server/');
 
 socket.on('newConnection', (msg) => {

@@ -44,7 +44,7 @@ function Board() {
             turn={props.boardProps.turn}
             lobby={props.boardProps.lobby}
             key={rowIndex + "" + colIndex}
-            windowWidth={props.clientProps.windowWidth}
+            windowWidth={Math.min(props.clientProps.windowWidth, props.clientProps.windowHeight)}
             onTileClick={props.onTileClick}
           />
         </div>
@@ -53,9 +53,9 @@ function Board() {
   });
 
   return (
-    <StyledBoard windowWidth={props.clientProps.windowWidth}>
+    <StyledBoard windowWidth={Math.min(props.clientProps.windowWidth, props.clientProps.windowHeight)}>
       <div id="board">
-        <StyledSquares windowWidth={props.clientProps.windowWidth}>
+        <StyledSquares windowWidth={Math.min(props.clientProps.windowWidth, props.clientProps.windowHeight)}>
           {tilesList}
         </StyledSquares>
       </div>
